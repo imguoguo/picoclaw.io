@@ -6,7 +6,8 @@ on:
     paths:
       - "*.html"
       - "*.json"
-      - "*.jpg"
+      - "*.webp"
+      - "*.ico"
 
 jobs:
   deploy:
@@ -22,7 +23,8 @@ jobs:
         run: |
           aws s3 cp index.html s3://picoclaw.io/index.html
           aws s3 cp releases.json s3://picoclaw.io/releases.json
-          aws s3 cp logo.jpg s3://picoclaw.io/logo.jpg
+          aws s3 cp logo.webp s3://picoclaw.io/logo.webp
+          aws s3 cp favicon.ico s3://picoclaw.io/favicon.ico
 
       - name: Invalidate CloudFront cache
         env:
