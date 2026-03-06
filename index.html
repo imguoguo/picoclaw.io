@@ -381,43 +381,6 @@
     }
     .chk-link:hover { color: var(--text); border-color: var(--border-h); background: rgba(255,255,255,.04); }
 
-    .source-toggle {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px solid var(--border);
-    }
-    .source-label {
-      font-size: 0.74rem;
-      color: var(--text-muted);
-      margin-right: 4px;
-      white-space: nowrap;
-    }
-    .source-btns {
-      display: flex;
-      gap: 2px;
-      background: rgba(10, 20, 34, 0.7);
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      padding: 2px;
-    }
-    .source-btn {
-      padding: 3px 10px;
-      border-radius: 5px;
-      border: none;
-      background: transparent;
-      color: var(--text-muted);
-      font-size: 0.72rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background .15s, color .15s;
-      font-family: inherit;
-    }
-    .source-btn.active { background: var(--border-h); color: var(--text); }
-    .source-btn:hover:not(.active) { color: var(--text); }
-
     /* ─── SUBSCRIBE ──────────────────────────────────────────── */
     .subscribe-section {
       position: relative; z-index: 1;
@@ -629,13 +592,6 @@
           <span data-i18n="checksums">SHA256 Checksums</span>
         </a>
       </div>
-      <div class="source-toggle">
-        <span class="source-label" data-i18n="source-label">Download source:</span>
-        <div class="source-btns" id="source-btns">
-          <button class="source-btn" data-source="github">GitHub</button>
-          <button class="source-btn" data-source="cdn">Sipeed CDN</button>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -675,7 +631,6 @@
         'sipeed-visit':         'Visit Sipeed',
         'btn-repo':             'PicoClaw Repo',
         'btn-docs':             'Documentation',
-        'source-label':         'Download source:',
         'subscribe-title':      'Stay Connected',
         'subscribe-desc':       'Subscribe for news and product updates.',
         'subscribe-global':     'Global · Google Form',
@@ -703,7 +658,6 @@
         'sipeed-visit':         '访问 Sipeed',
         'btn-repo':             'PicoClaw 仓库',
         'btn-docs':             '文档',
-        'source-label':         '下载源：',
         'subscribe-title':      '保持联系',
         'subscribe-desc':       '订阅最新动态和产品更新。',
         'subscribe-global':     '全球用户 · Google 表单',
@@ -743,7 +697,6 @@
 
     function switchLang(lang) {
       currentLang = lang;
-      currentSource = lang === 'zh' ? 'cdn' : 'github';
       localStorage.setItem('lang', lang);
       applyStaticLang();
       if (platformData) buildCards(platformData);
@@ -796,15 +749,8 @@
     ];
 
     // ── Constants ─────────────────────────────────────────────────
-    const BASE_DL_GITHUB = 'https://github.com/sipeed/picoclaw/releases/latest/download/';
-    const BASE_DL_CDN    = 'https://picoclaw.sipeed.com/latest/';
-    const RELEASES_URL   = 'https://github.com/sipeed/picoclaw/releases/latest';
-
-    let currentSource = currentLang === 'zh' ? 'cdn' : 'github';
-
-    function getBaseDL() {
-      return currentSource === 'cdn' ? BASE_DL_CDN : BASE_DL_GITHUB;
-    }
+    const BASE_DL      = 'https://github.com/sipeed/picoclaw/releases/latest/download/';
+    const RELEASES_URL = 'https://github.com/sipeed/picoclaw/releases/latest';
     const ICON_CDN     = 'https://cdn.simpleicons.org/';
 
     const INLINE_ICONS = {
@@ -862,10 +808,11 @@
       });
     }
 
-    let currentModalPlatform = null;
+    function openModal(p) {
+      document.getElementById('modal-title-text').textContent = p.name;
+      document.getElementById('modal-icon').src = iconUrl(p.icon, p.color);
+      document.getElementById('modal-icon').alt = p.name;
 
-    function renderArchList(p) {
-      const base = getBaseDL();
       const list = document.getElementById('arch-list');
       list.innerHTML = '';
 
@@ -875,9 +822,9 @@
           el = document.createElement('div');
           el.className = 'arch-item arch-item--multi';
           const fmtBtns = [
-            `<a class="fmt-btn" href="${base + arch.file}" target="_blank" rel="noopener noreferrer">.tar.gz</a>`,
-            `<a class="fmt-btn" href="${base + arch.packages.deb}" target="_blank" rel="noopener noreferrer">.deb</a>`,
-            `<a class="fmt-btn" href="${base + arch.packages.rpm}" target="_blank" rel="noopener noreferrer">.rpm</a>`,
+            `<a class="fmt-btn" href="${BASE_DL + arch.file}" target="_blank" rel="noopener noreferrer">.tar.gz</a>`,
+            `<a class="fmt-btn" href="${BASE_DL + arch.packages.deb}" target="_blank" rel="noopener noreferrer">.deb</a>`,
+            `<a class="fmt-btn" href="${BASE_DL + arch.packages.rpm}" target="_blank" rel="noopener noreferrer">.rpm</a>`,
           ].join('');
           el.innerHTML = `
             <div class="arch-left">
@@ -888,7 +835,7 @@
         } else {
           el = document.createElement('a');
           el.className = 'arch-item';
-          el.href = base + arch.file;
+          el.href = BASE_DL + arch.file;
           el.target = '_blank';
           el.rel = 'noopener noreferrer';
           el.innerHTML = `
@@ -900,27 +847,11 @@
         }
         list.appendChild(el);
       });
-    }
-
-    function updateSourceBtns() {
-      document.querySelectorAll('#source-btns .source-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.source === currentSource);
-      });
-    }
-
-    function openModal(p) {
-      currentModalPlatform = p;
-      document.getElementById('modal-title-text').textContent = p.name;
-      document.getElementById('modal-icon').src = iconUrl(p.icon, p.color);
-      document.getElementById('modal-icon').alt = p.name;
-
-      renderArchList(p);
-      updateSourceBtns();
 
       document.getElementById('backdrop').classList.add('open');
       document.body.style.overflow = 'hidden';
       requestAnimationFrame(() => {
-        const first = document.getElementById('arch-list').querySelector('.arch-item');
+        const first = list.querySelector('.arch-item');
         if (first) first.focus();
       });
     }
@@ -935,14 +866,6 @@
     });
     document.getElementById('close-btn').addEventListener('click', closeModal);
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-    document.getElementById('source-btns').addEventListener('click', e => {
-      const btn = e.target.closest('.source-btn');
-      if (!btn) return;
-      currentSource = btn.dataset.source;
-      updateSourceBtns();
-      if (currentModalPlatform) renderArchList(currentModalPlatform);
-    });
 
     applyStaticLang();
     document.getElementById('checksums-link').href = RELEASES_URL;
