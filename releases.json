@@ -71,6 +71,18 @@
           "desc": "RISC-V 64-bit",
           "file": "picoclaw_Linux_riscv64.tar.gz",
           "packages": { "deb": "picoclaw_riscv64.deb", "rpm": "picoclaw_riscv64.rpm" }
+        },
+        {
+          "label": "MIPS (mipsle)",
+          "desc": "MIPS little-endian 32-bit",
+          "file": "picoclaw_Linux_mipsle.tar.gz",
+          "packages": { "deb": "picoclaw_mipsle.deb", "rpm": "picoclaw_mipsle.rpm" }
+        },
+        {
+          "label": "s390x",
+          "desc": "IBM Z / LinuxONE",
+          "file": "picoclaw_Linux_s390x.tar.gz",
+          "packages": { "deb": "picoclaw_s390x.deb", "rpm": "picoclaw_s390x.rpm" }
         }
       ]
     },
