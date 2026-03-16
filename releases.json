@@ -108,6 +108,24 @@
           "file": "picoclaw_Freebsd_armv7.tar.gz"
         }
       ]
+    },
+    {
+      "id": "netbsd",
+      "name": "NetBSD",
+      "icon": "netbsd",
+      "color": "#FF6600",
+      "archs": [
+        {
+          "label": "x86_64",
+          "desc": "64-bit · Recommended",
+          "file": "picoclaw_Netbsd_x86_64.tar.gz"
+        },
+        {
+          "label": "ARM64 (arm64)",
+          "desc": "AArch64",
+          "file": "picoclaw_Netbsd_arm64.tar.gz"
+        }
+      ]
     }
   ]
 }
