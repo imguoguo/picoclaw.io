@@ -135,6 +135,72 @@
       box-shadow: 0 8px 22px rgba(88, 166, 255, 0.3);
     }
 
+    /* ─── HERO DOWNLOAD ─────────────────────────────────────── */
+    .hero-dl {
+      position: relative; z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-top: 28px;
+    }
+    .hero-dl-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      border-radius: 12px 0 0 12px;
+      border: 1.5px solid var(--accent);
+      border-right: none;
+      background: var(--accent);
+      color: #fff;
+      font-size: 1.05rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background .2s, box-shadow .2s, transform .2s;
+    }
+    .hero-dl-btn:hover {
+      background: #4393e6;
+      box-shadow: 0 8px 28px rgba(88, 166, 255, 0.35);
+      transform: translateY(-2px);
+    }
+    .hero-dl-btn:active { transform: translateY(0); }
+    .hero-dl-expand {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 50px;
+      border-radius: 0 12px 12px 0;
+      border: 1.5px solid var(--accent);
+      border-left: 1px solid rgba(255, 255, 255, 0.25);
+      background: var(--accent);
+      color: #fff;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background .2s, box-shadow .2s, transform .2s;
+    }
+    .hero-dl-expand:hover {
+      background: #4393e6;
+      box-shadow: 0 8px 28px rgba(88, 166, 255, 0.35);
+      transform: translateY(-2px);
+    }
+    .hero-dl-expand:active { transform: translateY(0); }
+    .hero-dl-sub {
+      position: relative; z-index: 1;
+      margin-top: 8px;
+      text-align: center;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+    .hero-dl-sub a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .hero-dl-sub a:hover { text-decoration: underline; }
+
     /* ─── MAIN ───────────────────────────────────────────────── */
     main {
       position: relative; z-index: 1;
@@ -575,6 +641,22 @@
         <span data-i18n="sipeed-visit">Visit Sipeed</span>
       </a>
     </div>
+    <div class="hero-dl reveal d3" id="hero-dl" style="display:none">
+      <a class="hero-dl-btn" id="hero-dl-btn" href="#">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        <span id="hero-dl-label">Download</span>
+      </a>
+      <button class="hero-dl-expand" id="hero-dl-expand" aria-label="More options">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </button>
+    </div>
+    <p class="hero-dl-sub reveal d3" id="hero-dl-sub" style="display:none"></p>
   </header>
 
   <main>
@@ -684,6 +766,9 @@
         'subscribe-cn-desc':    '中国大陆用户可通过飞书表单订阅。',
         'subscribe-btn-google': 'Subscribe via Google Form',
         'subscribe-btn-feishu': 'Subscribe via Feishu',
+        'hero-dl-for':          (os, arch) => `Download for ${os} (${arch})`,
+        'hero-dl-generic':      'Download',
+        'hero-dl-other':        'Other platforms',
       },
       zh: {
         'tagline':              '轻量、跨平台、极速',
@@ -712,6 +797,9 @@
         'subscribe-cn-desc':    '中国大陆用户可通过飞书表单订阅。',
         'subscribe-btn-google': '通过 Google 表单订阅',
         'subscribe-btn-feishu': '通过飞书表单订阅',
+        'hero-dl-for':          (os, arch) => `下载 ${os} (${arch}) 版`,
+        'hero-dl-generic':      '下载',
+        'hero-dl-other':        '其他平台',
       },
     };
 
@@ -946,9 +1034,121 @@
       if (currentModalPlatform) renderArchList(currentModalPlatform);
     });
 
+    // ── Platform detection ───────────────────────────────────────
+    function detectPlatformSync() {
+      const ua = navigator.userAgent;
+      const platform = navigator.platform || '';
+
+      let os = null, arch = null;
+
+      if (/Macintosh|Mac OS X/.test(ua)) {
+        os = 'macos';
+        // UA always says "Intel" even on Apple Silicon, default to arm64
+        arch = 'arm64';
+      } else if (/Windows/.test(ua)) {
+        os = 'windows';
+        arch = 'x86_64';
+        if (/ARM/.test(ua) || /WOA/.test(ua)) arch = 'arm64';
+      } else if (/Android/.test(ua)) {
+        os = 'android';
+      } else if (/Linux/.test(ua)) {
+        os = 'linux';
+        arch = 'x86_64';
+        if (/aarch64|arm64/.test(platform)) arch = 'arm64';
+        else if (/armv7/.test(platform)) arch = 'armv7';
+      } else if (/FreeBSD/.test(ua)) {
+        os = 'freebsd';
+        arch = 'x86_64';
+        if (/aarch64|arm64/.test(platform)) arch = 'arm64';
+      }
+
+      return { os, arch };
+    }
+
+    let detectedPlatform = detectPlatformSync();
+
+    // Use high-entropy UA hints for accurate arch detection (Chromium only)
+    if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
+      navigator.userAgentData.getHighEntropyValues(['architecture', 'platform']).then(hints => {
+        const archHint = (hints.architecture || '').toLowerCase();
+        if (detectedPlatform.os === 'macos') {
+          detectedPlatform.arch = (archHint === 'arm') ? 'arm64' : 'x86_64';
+        } else if (detectedPlatform.os === 'windows') {
+          detectedPlatform.arch = (archHint === 'arm') ? 'arm64' : 'x86_64';
+        }
+        updateHeroDownload();
+      }).catch(() => {});
+    }
+
+    function detectPlatform() {
+      return detectedPlatform;
+    }
+
+    function findMatchingDownload(os, arch) {
+      const p = PLATFORMS.find(p => p.id === os);
+      if (!p || !p.archs) return null;
+      const a = p.archs.find(a => a.file.toLowerCase().includes(arch));
+      if (!a) return null;
+      return { platform: p, arch: a };
+    }
+
+    function setupHeroDownload() {
+      const { os, arch } = detectPlatform();
+      if (!os || os === 'android') return;
+
+      const match = findMatchingDownload(os, arch);
+      if (!match) return;
+
+      const heroWrap = document.getElementById('hero-dl');
+      const heroBtn = document.getElementById('hero-dl-btn');
+      const heroLabel = document.getElementById('hero-dl-label');
+      const heroExpand = document.getElementById('hero-dl-expand');
+      const heroSub = document.getElementById('hero-dl-sub');
+
+      heroLabel.textContent = t('hero-dl-for')(match.platform.name, arch);
+      heroBtn.href = getBaseDL() + match.arch.file;
+      heroBtn.target = '_blank';
+      heroBtn.rel = 'noopener noreferrer';
+
+      heroSub.innerHTML = `${match.arch.file} · <a href="#os-grid" id="hero-other-link">${t('hero-dl-other')}</a>`;
+
+      heroWrap.style.display = '';
+      heroSub.style.display = '';
+
+      heroExpand.addEventListener('click', () => openModal(match.platform));
+    }
+
+    function updateHeroDownload() {
+      const { os, arch } = detectPlatform();
+      if (!os || os === 'android') return;
+      const match = findMatchingDownload(os, arch);
+      if (!match) return;
+
+      const heroLabel = document.getElementById('hero-dl-label');
+      const heroBtn = document.getElementById('hero-dl-btn');
+      const heroSub = document.getElementById('hero-dl-sub');
+
+      heroLabel.textContent = t('hero-dl-for')(match.platform.name, arch);
+      heroBtn.href = getBaseDL() + match.arch.file;
+      heroSub.innerHTML = `${match.arch.file} · <a href="#os-grid">${t('hero-dl-other')}</a>`;
+    }
+
+    // Patch switchLang to also update hero button
+    const _origSwitchLang = switchLang;
+    switchLang = function(lang) {
+      _origSwitchLang(lang);
+      updateHeroDownload();
+    };
+
+    // Patch source toggle to update hero download link
+    document.getElementById('source-btns').addEventListener('click', () => {
+      setTimeout(updateHeroDownload, 0);
+    });
+
     applyStaticLang();
     document.getElementById('checksums-link').href = RELEASES_URL;
     buildCards(PLATFORMS);
+    setupHeroDownload();
   </script>
 </body>
 </html>
