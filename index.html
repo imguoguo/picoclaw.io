@@ -172,7 +172,7 @@
       align-items: center;
       justify-content: center;
       width: 44px;
-      height: 50px;
+      align-self: stretch;
       border-radius: 0 12px 12px 0;
       border: 1.5px solid var(--accent);
       border-left: 1px solid rgba(255, 255, 255, 0.25);
@@ -487,7 +487,7 @@
     /* ─── SUBSCRIBE ──────────────────────────────────────────── */
     .subscribe-section {
       position: relative; z-index: 1;
-      max-width: 740px;
+      max-width: 960px;
       margin: 0 auto 80px;
       padding: 0 20px;
       text-align: center;
@@ -626,6 +626,14 @@
         <img src="https://img.shields.io/github/stars/sipeed/picoclaw?style=flat-square&logo=github&color=f5a623&labelColor=0d1117&logoColor=white"
              alt="GitHub Stars" height="24" />
       </a>
+      <a class="badge-link" href="https://raw.githubusercontent.com/sipeed/picoclaw/main/assets/wechat.png" target="_blank" rel="noopener noreferrer">
+        <img src="https://img.shields.io/badge/WeChat-Group-41d56b?style=flat-square&logo=wechat&logoColor=white"
+             alt="WeChat Group" height="24" />
+      </a>
+      <a class="badge-link" href="https://discord.gg/V4sAZ9XWpN" target="_blank" rel="noopener noreferrer">
+        <img src="https://img.shields.io/badge/Discord-Community-4c60eb?style=flat-square&logo=discord&logoColor=white"
+             alt="Discord Community" height="24" />
+      </a>
     </div>
     <div class="header-buttons reveal d3">
       <a class="btn-header" href="https://github.com/sipeed/picoclaw" target="_blank" rel="noopener noreferrer">
@@ -679,6 +687,21 @@
         <h3 data-i18n="subscribe-cn">Mainland China · Feishu</h3>
         <p data-i18n="subscribe-cn-desc">中国大陆用户可通过飞书表单订阅。</p>
         <a class="form-link" href="https://sipeed-ai.feishu.cn/share/base/form/shrcnNqIl1NkOHPTQDI5nC0pbag" target="_blank" rel="noopener noreferrer" data-i18n="subscribe-btn-feishu">Subscribe via Feishu</a>
+      </article>
+    </div>
+    <p class="section-label" style="margin-top:40px;" data-i18n="community-title">Join the Community</p>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:14px;">
+      <article class="form-card" style="align-items:center;flex:0 0 auto;width:340px;">
+        <h3 data-i18n="community-wechat">WeChat Group</h3>
+        <a href="https://raw.githubusercontent.com/sipeed/picoclaw/main/assets/wechat.png" target="_blank" rel="noopener noreferrer">
+          <img src="https://raw.githubusercontent.com/sipeed/picoclaw/main/assets/wechat.png" alt="WeChat QR Code" style="width:140px;height:auto;border-radius:8px;margin:8px 0;" />
+        </a>
+        <p data-i18n="community-wechat-desc" style="text-align:center;">Scan QR code to join the WeChat group.</p>
+      </article>
+      <article class="form-card" style="flex:0 0 auto;width:340px;">
+        <h3 data-i18n="community-discord">Discord Community</h3>
+        <p data-i18n="community-discord-desc">Join our Discord server for discussions and support.</p>
+        <a class="form-link" href="https://discord.gg/V4sAZ9XWpN" target="_blank" rel="noopener noreferrer" data-i18n="community-discord-btn">Join Discord</a>
       </article>
     </div>
   </section>
@@ -769,6 +792,13 @@
         'hero-dl-for':          (os, arch) => `Download for ${os} (${arch})`,
         'hero-dl-generic':      'Download',
         'hero-dl-other':        'Other platforms',
+        'community-title':      'Join the Community',
+        'community-wechat':     'WeChat Group',
+        'community-wechat-desc':'Scan QR code to join the WeChat group.',
+        'community-wechat-btn': 'View QR Code',
+        'community-discord':    'Discord Community',
+        'community-discord-desc':'Join our Discord server for discussions and support.',
+        'community-discord-btn':'Join Discord',
       },
       zh: {
         'tagline':              '轻量、跨平台、极速',
@@ -800,6 +830,13 @@
         'hero-dl-for':          (os, arch) => `下载 ${os} (${arch}) 版`,
         'hero-dl-generic':      '下载',
         'hero-dl-other':        '其他平台',
+        'community-title':      '加入社区',
+        'community-wechat':     '微信交流群',
+        'community-wechat-desc':'扫描二维码加入微信群。',
+        'community-wechat-btn': '查看二维码',
+        'community-discord':    'Discord 社区',
+        'community-discord-desc':'加入 Discord 服务器参与讨论和获取支持。',
+        'community-discord-btn':'加入 Discord',
       },
     };
 
