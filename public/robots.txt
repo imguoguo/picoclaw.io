@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://picoclaw.io/sitemap-index.xml

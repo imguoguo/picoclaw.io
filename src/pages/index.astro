@@ -1,0 +1,861 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base>
+  <header>
+    <div class="lang-toggle" id="lang-toggle">
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="zh">中文</button>
+    </div>
+
+    <div class="logo-wrap reveal d1">
+      <img src="/logo.webp" alt="PicoClaw — Lightweight cross-platform CLI tool" width="160" height="160" />
+    </div>
+
+    <h1 class="site-title reveal d1">PicoClaw</h1>
+    <p class="tagline reveal d2" data-i18n="tagline">Lightweight, cross-platform, blazing fast</p>
+
+    <div class="header-actions reveal d3">
+      <a class="badge-link" href="https://github.com/sipeed/picoclaw/releases/latest" target="_blank" rel="noopener noreferrer">
+        <img src="https://img.shields.io/github/v/release/sipeed/picoclaw?style=flat-square&logo=github&color=58a6ff&labelColor=0d1117&logoColor=white"
+             alt="Latest Release" height="24" width="auto" loading="lazy" />
+      </a>
+      <a class="badge-link" href="https://github.com/sipeed/picoclaw" target="_blank" rel="noopener noreferrer">
+        <img src="https://img.shields.io/github/stars/sipeed/picoclaw?style=flat-square&logo=github&color=f5a623&labelColor=0d1117&logoColor=white"
+             alt="GitHub Stars" height="24" width="auto" loading="lazy" />
+      </a>
+      <a class="badge-link" href="https://raw.githubusercontent.com/sipeed/picoclaw/main/assets/wechat.png" target="_blank" rel="noopener noreferrer">
+        <img src="https://img.shields.io/badge/WeChat-Group-41d56b?style=flat-square&logo=wechat&logoColor=white"
+             alt="WeChat Group" height="24" width="auto" loading="lazy" />
+      </a>
+      <a class="badge-link" href="https://discord.gg/V4sAZ9XWpN" target="_blank" rel="noopener noreferrer">
+        <img src="https://img.shields.io/badge/Discord-Community-4c60eb?style=flat-square&logo=discord&logoColor=white"
+             alt="Discord Community" height="24" width="auto" loading="lazy" />
+      </a>
+    </div>
+
+    <nav class="header-buttons reveal d3" aria-label="Quick links">
+      <a class="btn-header" href="https://github.com/sipeed/picoclaw" target="_blank" rel="noopener noreferrer">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span data-i18n="btn-repo">PicoClaw Repo</span>
+      </a>
+      <a class="btn-header" href="https://docs.picoclaw.io" target="_blank" rel="noopener noreferrer">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        <span data-i18n="btn-docs">Documentation</span>
+      </a>
+      <a class="btn-header" href="https://www.sipeed.com" target="_blank" rel="noopener noreferrer">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <span data-i18n="sipeed-visit">Visit Sipeed</span>
+      </a>
+    </nav>
+
+    <div class="hero-dl reveal d3" id="hero-dl" style="display:none">
+      <a class="hero-dl-btn" id="hero-dl-btn" href="#">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        <span id="hero-dl-label">Download</span>
+      </a>
+      <button class="hero-dl-expand" id="hero-dl-expand" aria-label="More download options">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </button>
+    </div>
+    <p class="hero-dl-sub reveal d3" id="hero-dl-sub" style="display:none"></p>
+  </header>
+
+  <main>
+    <section aria-label="Platform downloads">
+      <h2 class="section-label reveal d4" data-i18n="section-label">Choose your platform</h2>
+      <div class="os-grid reveal d5" id="os-grid">
+        <div class="state-msg" style="grid-column:1/-1" data-i18n="loading">Loading&hellip;</div>
+      </div>
+    </section>
+
+    <section class="subscribe-section" aria-label="Stay connected">
+      <h2 class="section-label" data-i18n="subscribe-title">Stay Connected</h2>
+      <p style="color:var(--text-muted);font-size:0.9rem;" data-i18n="subscribe-desc">Subscribe for news and product updates.</p>
+      <div class="form-grid">
+        <article class="form-card">
+          <h3 data-i18n="subscribe-global">Global &middot; Google Form</h3>
+          <p data-i18n="subscribe-global-desc">International users can subscribe via Google Forms.</p>
+          <a class="form-link" href="https://forms.gle/2CP5WkkFu3KLFKy89" target="_blank" rel="noopener noreferrer" data-i18n="subscribe-btn-google">Subscribe via Google Form</a>
+        </article>
+        <article class="form-card">
+          <h3 data-i18n="subscribe-cn">Mainland China &middot; Feishu</h3>
+          <p data-i18n="subscribe-cn-desc">中国大陆用户可通过飞书表单订阅。</p>
+          <a class="form-link" href="https://sipeed-ai.feishu.cn/share/base/form/shrcnNqIl1NkOHPTQDI5nC0pbag" target="_blank" rel="noopener noreferrer" data-i18n="subscribe-btn-feishu">Subscribe via Feishu</a>
+        </article>
+      </div>
+
+      <h2 class="section-label" style="margin-top:40px;" data-i18n="community-title">Join the Community</h2>
+      <div class="community-grid">
+        <article class="form-card community-card">
+          <h3 data-i18n="community-wechat">WeChat Group</h3>
+          <a href="https://raw.githubusercontent.com/sipeed/picoclaw/main/assets/wechat.png" target="_blank" rel="noopener noreferrer">
+            <img src="https://raw.githubusercontent.com/sipeed/picoclaw/main/assets/wechat.png" alt="WeChat QR Code" width="140" height="140" style="border-radius:8px;margin:8px 0;" loading="lazy" />
+          </a>
+          <p data-i18n="community-wechat-desc" style="text-align:center;">Scan QR code to join the WeChat group.</p>
+        </article>
+        <article class="form-card community-card">
+          <h3 data-i18n="community-discord">Discord Community</h3>
+          <p data-i18n="community-discord-desc">Join our Discord server for discussions and support.</p>
+          <a class="form-link" href="https://discord.gg/V4sAZ9XWpN" target="_blank" rel="noopener noreferrer" data-i18n="community-discord-btn">Join Discord</a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- Download Modal -->
+  <div class="backdrop" id="backdrop" role="presentation">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
+      <div class="modal-head">
+        <img class="modal-icon" id="modal-icon" src="" alt="" width="34" height="34" />
+        <div class="modal-titles">
+          <div class="modal-title" id="modal-title-text"></div>
+          <div class="modal-sub" data-i18n="modal-sub">Select architecture to download</div>
+        </div>
+        <button class="close-btn" id="close-btn" aria-label="Close">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="divider"></div>
+      <div class="arch-list" id="arch-list"></div>
+      <div class="modal-foot">
+        <span class="modal-foot-note" data-i18n="modal-foot-note">Always downloads the latest release</span>
+        <a class="chk-link" id="checksums-link" href="#" target="_blank" rel="noopener noreferrer">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <span data-i18n="checksums">SHA256 Checksums</span>
+        </a>
+      </div>
+      <div class="source-toggle">
+        <span class="source-label" data-i18n="source-label">Download source:</span>
+        <div class="source-btns" id="source-btns">
+          <button class="source-btn" data-source="github">GitHub</button>
+          <button class="source-btn" data-source="cdn">Sipeed CDN</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <nav class="footer-links" aria-label="Footer links">
+      <a href="https://github.com/sipeed/picoclaw" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <span class="footer-sep" aria-hidden="true">&middot;</span>
+      <a href="https://docs.picoclaw.io" target="_blank" rel="noopener noreferrer" data-i18n="footer-docs">Docs</a>
+      <span class="footer-sep" aria-hidden="true">&middot;</span>
+      <a href="https://github.com/sipeed/picoclaw/releases" target="_blank" rel="noopener noreferrer" data-i18n="footer-releases">All Releases</a>
+      <span class="footer-sep" aria-hidden="true">&middot;</span>
+      <a href="https://github.com/sipeed/picoclaw/issues" target="_blank" rel="noopener noreferrer" data-i18n="footer-issues">Issues</a>
+      <span class="footer-sep" aria-hidden="true">&middot;</span>
+      <a href="https://github.com/sipeed/picoclaw.io" target="_blank" rel="noopener noreferrer" data-i18n="footer-site-repo">Site Source</a>
+    </nav>
+    <div id="footer-credit">PicoClaw is open-source software by <a href="https://github.com/sipeed" target="_blank" rel="noopener noreferrer">Sipeed</a></div>
+  </footer>
+
+  <script is:inline>
+    // ── i18n ──────────────────────────────────────────────────────
+    const TRANSLATIONS = {
+      en: {
+        'tagline':              'Lightweight, cross-platform, blazing fast',
+        'section-label':        'Choose your platform',
+        'loading':              'Loading\u2026',
+        'modal-sub':            'Select architecture to download',
+        'modal-foot-note':      'Always downloads the latest release',
+        'checksums':            'SHA256 Checksums',
+        'footer-docs':          'Docs',
+        'footer-releases':      'All Releases',
+        'footer-issues':        'Issues',
+        'footer-site-repo':     'Site Source',
+        'footer-credit':        'PicoClaw is open-source software by <a href="https://github.com/sipeed" target="_blank" rel="noopener noreferrer">Sipeed</a>',
+        'load-error':           'Failed to load release info.',
+        'view-github':          'View on GitHub \u2192',
+        'arch-count':           function(n) { return n + ' architecture' + (n > 1 ? 's' : ''); },
+        'sipeed-visit':         'Visit Sipeed',
+        'btn-repo':             'PicoClaw Repo',
+        'btn-docs':             'Documentation',
+        'source-label':         'Download source:',
+        'subscribe-title':      'Stay Connected',
+        'subscribe-desc':       'Subscribe for news and product updates.',
+        'subscribe-global':     'Global \u00b7 Google Form',
+        'subscribe-global-desc':'International users can subscribe via Google Forms.',
+        'subscribe-cn':         'Mainland China \u00b7 Feishu',
+        'subscribe-cn-desc':    '\u4e2d\u56fd\u5927\u9646\u7528\u6237\u53ef\u901a\u8fc7\u98de\u4e66\u8868\u5355\u8ba2\u9605\u3002',
+        'subscribe-btn-google': 'Subscribe via Google Form',
+        'subscribe-btn-feishu': 'Subscribe via Feishu',
+        'hero-dl-for':          function(os, arch) { return 'Download for ' + os + ' (' + arch + ')'; },
+        'hero-dl-generic':      'Download',
+        'hero-dl-other':        'Other platforms',
+        'community-title':      'Join the Community',
+        'community-wechat':     'WeChat Group',
+        'community-wechat-desc':'Scan QR code to join the WeChat group.',
+        'community-wechat-btn': 'View QR Code',
+        'community-discord':    'Discord Community',
+        'community-discord-desc':'Join our Discord server for discussions and support.',
+        'community-discord-btn':'Join Discord',
+      },
+      zh: {
+        'tagline':              '\u8f7b\u91cf\u3001\u8de8\u5e73\u53f0\u3001\u6781\u901f',
+        'section-label':        '\u9009\u62e9\u5e73\u53f0',
+        'loading':              '\u52a0\u8f7d\u4e2d\u2026',
+        'modal-sub':            '\u9009\u62e9\u67b6\u6784\u4ee5\u4e0b\u8f7d',
+        'modal-foot-note':      '\u59cb\u7ec8\u4e0b\u8f7d\u6700\u65b0\u7248\u672c',
+        'checksums':            'SHA256 \u6821\u9a8c\u548c',
+        'footer-docs':          '\u6587\u6863',
+        'footer-releases':      '\u6240\u6709\u7248\u672c',
+        'footer-issues':        '\u95ee\u9898\u53cd\u9988',
+        'footer-site-repo':     '\u7f51\u7ad9\u6e90\u7801',
+        'footer-credit':        'PicoClaw \u662f\u7531 <a href="https://github.com/sipeed" target="_blank" rel="noopener noreferrer">Sipeed</a> \u5f00\u53d1\u7684\u5f00\u6e90\u8f6f\u4ef6',
+        'load-error':           '\u52a0\u8f7d\u53d1\u5e03\u4fe1\u606f\u5931\u8d25\u3002',
+        'view-github':          '\u5728 GitHub \u4e0a\u67e5\u770b \u2192',
+        'arch-count':           function(n) { return n + ' \u4e2a\u67b6\u6784'; },
+        'sipeed-visit':         '\u8bbf\u95ee Sipeed',
+        'btn-repo':             'PicoClaw \u4ed3\u5e93',
+        'btn-docs':             '\u6587\u6863',
+        'source-label':         '\u4e0b\u8f7d\u6e90\uff1a',
+        'subscribe-title':      '\u4fdd\u6301\u8054\u7cfb',
+        'subscribe-desc':       '\u8ba2\u9605\u6700\u65b0\u52a8\u6001\u548c\u4ea7\u54c1\u66f4\u65b0\u3002',
+        'subscribe-global':     '\u5168\u7403\u7528\u6237 \u00b7 Google \u8868\u5355',
+        'subscribe-global-desc':'International users can subscribe via Google Forms.',
+        'subscribe-cn':         '\u4e2d\u56fd\u5927\u9646\u7528\u6237 \u00b7 \u98de\u4e66',
+        'subscribe-cn-desc':    '\u4e2d\u56fd\u5927\u9646\u7528\u6237\u53ef\u901a\u8fc7\u98de\u4e66\u8868\u5355\u8ba2\u9605\u3002',
+        'subscribe-btn-google': '\u901a\u8fc7 Google \u8868\u5355\u8ba2\u9605',
+        'subscribe-btn-feishu': '\u901a\u8fc7\u98de\u4e66\u8868\u5355\u8ba2\u9605',
+        'hero-dl-for':          function(os, arch) { return '\u4e0b\u8f7d ' + os + ' (' + arch + ') \u7248'; },
+        'hero-dl-generic':      '\u4e0b\u8f7d',
+        'hero-dl-other':        '\u5176\u4ed6\u5e73\u53f0',
+        'community-title':      '\u52a0\u5165\u793e\u533a',
+        'community-wechat':     '\u5fae\u4fe1\u4ea4\u6d41\u7fa4',
+        'community-wechat-desc':'\u626b\u63cf\u4e8c\u7ef4\u7801\u52a0\u5165\u5fae\u4fe1\u7fa4\u3002',
+        'community-wechat-btn': '\u67e5\u770b\u4e8c\u7ef4\u7801',
+        'community-discord':    'Discord \u793e\u533a',
+        'community-discord-desc':'\u52a0\u5165 Discord \u670d\u52a1\u5668\u53c2\u4e0e\u8ba8\u8bba\u548c\u83b7\u53d6\u652f\u6301\u3002',
+        'community-discord-btn':'\u52a0\u5165 Discord',
+      },
+    };
+
+    function detectLang() {
+      var saved = localStorage.getItem('lang');
+      if (saved && TRANSLATIONS[saved]) return saved;
+      return navigator.language.startsWith('zh') ? 'zh' : 'en';
+    }
+
+    var currentLang = detectLang();
+
+    function t(key) {
+      return (TRANSLATIONS[currentLang] || TRANSLATIONS.en)[key]
+          || TRANSLATIONS.en[key]
+          || key;
+    }
+
+    function applyStaticLang() {
+      document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
+      document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        var val = t(el.dataset.i18n);
+        if (typeof val === 'string' && val.indexOf('<') !== -1) el.innerHTML = val;
+        else if (typeof val === 'string') el.textContent = val;
+      });
+      document.querySelectorAll('.lang-btn').forEach(function(btn) {
+        btn.classList.toggle('active', btn.dataset.lang === currentLang);
+      });
+    }
+
+    function switchLang(lang) {
+      currentLang = lang;
+      currentSource = lang === 'zh' ? 'cdn' : 'github';
+      localStorage.setItem('lang', lang);
+      applyStaticLang();
+      if (platformData) buildCards(platformData);
+    }
+
+    document.getElementById('lang-toggle').addEventListener('click', function(e) {
+      var btn = e.target.closest('.lang-btn');
+      if (btn) switchLang(btn.dataset.lang);
+    });
+
+    // ── Release data ─────────────────────────────────────────────────
+    var PLATFORMS = [
+      {
+        id: 'macos', name: 'macOS', icon: 'apple', color: '#b0b0b5',
+        archs: [
+          { label: 'Apple Silicon (arm64)', desc: 'M1 / M2 / M3 and later',  file: 'picoclaw_Darwin_arm64.tar.gz' },
+          { label: 'Intel (x86_64)',        desc: 'Intel-based Mac',           file: 'picoclaw_Darwin_x86_64.tar.gz' },
+        ],
+      },
+      {
+        id: 'windows', name: 'Windows', icon: 'windows', color: '#0a84ff',
+        archs: [
+          { label: 'x86_64 (64-bit)', desc: 'Recommended for most PCs', file: 'picoclaw_Windows_x86_64.zip' },
+          { label: 'ARM64',           desc: 'Windows on ARM',           file: 'picoclaw_Windows_arm64.zip' },
+        ],
+      },
+      {
+        id: 'linux', name: 'Linux', icon: 'linux', color: '#f5a623',
+        archs: [
+          { label: 'x86_64',             desc: '64-bit \u00b7 Recommended',        file: 'picoclaw_Linux_x86_64.tar.gz',  packages: { deb: 'picoclaw_x86_64.deb',   rpm: 'picoclaw_x86_64.rpm'   } },
+          { label: 'ARM64 (arm64)',       desc: 'Raspberry Pi 4/5, modern SBCs',    file: 'picoclaw_Linux_arm64.tar.gz',   packages: { deb: 'picoclaw_aarch64.deb',  rpm: 'picoclaw_aarch64.rpm'  } },
+          { label: 'ARMv7 (armv7)',       desc: 'Raspberry Pi 2/3, older SBCs',     file: 'picoclaw_Linux_armv7.tar.gz',   packages: { deb: 'picoclaw_armv7.deb',    rpm: 'picoclaw_armv7.rpm'    } },
+          { label: 'ARMv6 (armv6)',       desc: 'Raspberry Pi 1 / Zero',            file: 'picoclaw_Linux_armv6.tar.gz',   packages: { deb: 'picoclaw_armv6.deb',    rpm: 'picoclaw_armv6.rpm'    } },
+          { label: 'RISC-V 64 (riscv64)', desc: 'RISC-V 64-bit',                   file: 'picoclaw_Linux_riscv64.tar.gz', packages: { deb: 'picoclaw_riscv64.deb',  rpm: 'picoclaw_riscv64.rpm'  } },
+          { label: 'MIPS (mipsle)',       desc: 'MIPS little-endian 32-bit',        file: 'picoclaw_Linux_mipsle.tar.gz',  packages: { deb: 'picoclaw_mipsle.deb',   rpm: 'picoclaw_mipsle.rpm'   } },
+          { label: 's390x',              desc: 'IBM Z / LinuxONE',                  file: 'picoclaw_Linux_s390x.tar.gz',   packages: { deb: 'picoclaw_s390x.deb',    rpm: 'picoclaw_s390x.rpm'    } },
+        ],
+      },
+      {
+        id: 'freebsd', name: 'FreeBSD', icon: 'freebsd', color: '#d03030',
+        archs: [
+          { label: 'x86_64',        desc: '64-bit \u00b7 Recommended', file: 'picoclaw_Freebsd_x86_64.tar.gz' },
+          { label: 'ARM64 (arm64)', desc: 'AArch64',                   file: 'picoclaw_Freebsd_arm64.tar.gz'  },
+          { label: 'ARMv7 (armv7)', desc: 'ARM 32-bit',                file: 'picoclaw_Freebsd_armv7.tar.gz'  },
+        ],
+      },
+      {
+        id: 'netbsd', name: 'NetBSD', icon: 'netbsd', color: '#FF6600',
+        archs: [
+          { label: 'x86_64',        desc: '64-bit \u00b7 Recommended', file: 'picoclaw_Netbsd_x86_64.tar.gz' },
+          { label: 'ARM64 (arm64)', desc: 'AArch64',                   file: 'picoclaw_Netbsd_arm64.tar.gz'  },
+        ],
+      },
+      {
+        id: 'android', name: 'Android', icon: 'android', color: '#3ddc84',
+        link: 'https://github.com/sipeed/picoclaw?tab=readme-ov-file#-run-on-old-android-phones',
+        sub: { en: 'View Guide', zh: '\u67e5\u770b\u6559\u7a0b' },
+      },
+    ];
+
+    // ── Constants ─────────────────────────────────────────────────
+    var BASE_DL_GITHUB = 'https://github.com/sipeed/picoclaw/releases/latest/download/';
+    var BASE_DL_CDN    = 'https://picoclaw-downloads.tos-cn-beijing.volces.com/latest/';
+    var RELEASES_URL   = 'https://github.com/sipeed/picoclaw/releases/latest';
+
+    var currentSource = currentLang === 'zh' ? 'cdn' : 'github';
+
+    function getBaseDL() {
+      return currentSource === 'cdn' ? BASE_DL_CDN : BASE_DL_GITHUB;
+    }
+    var ICON_CDN = 'https://cdn.simpleicons.org/';
+
+    var INLINE_ICONS = {
+      windows: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="{COLOR}"><path d="M3 5L10.5 3.9V11H3zM11.5 3.7L21 2.5V11H11.5zM3 12H10.5V20.1L3 19zM11.5 12H21V21.5L11.5 20.3z"/></svg>',
+    };
+
+    function iconUrl(slug, color) {
+      if (INLINE_ICONS[slug]) {
+        var svg = INLINE_ICONS[slug].replace('{COLOR}', color);
+        return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+      }
+      return ICON_CDN + slug + '/' + color.replace('#', '');
+    }
+
+    var ARROW_SVG = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+
+    var DL_SVG = '<svg class="dl-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>';
+
+    var platformData = null;
+
+    function buildCards(platforms) {
+      platformData = platforms;
+      var grid = document.getElementById('os-grid');
+      grid.innerHTML = '';
+      platforms.forEach(function(p) {
+        var card = document.createElement('div');
+        card.className = 'os-card';
+        card.style.setProperty('--c', p.color);
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        var subText = p.sub ? (p.sub[currentLang] || p.sub.en) : t('arch-count')(p.archs.length);
+        card.innerHTML =
+          '<img class="os-icon" src="' + iconUrl(p.icon, p.color) + '" alt="' + p.name + '" width="54" height="54" />' +
+          '<div class="os-info"><div class="os-name">' + p.name + '</div><div class="os-sub">' + subText + '</div></div>' +
+          '<div class="os-arrow">' + ARROW_SVG + '</div>';
+        var action = p.link
+          ? function() { window.open(p.link, '_blank', 'noopener,noreferrer'); }
+          : (function(platform) { return function() { openModal(platform); }; })(p);
+        card.addEventListener('click', action);
+        card.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); action(); }
+        });
+        grid.appendChild(card);
+      });
+    }
+
+    var currentModalPlatform = null;
+
+    function renderArchList(p) {
+      var base = getBaseDL();
+      var list = document.getElementById('arch-list');
+      list.innerHTML = '';
+      p.archs.forEach(function(arch) {
+        var el;
+        if (arch.packages) {
+          el = document.createElement('div');
+          el.className = 'arch-item arch-item--multi';
+          var fmtBtns =
+            '<a class="fmt-btn" href="' + base + arch.file + '" target="_blank" rel="noopener noreferrer">.tar.gz</a>' +
+            '<a class="fmt-btn" href="' + base + arch.packages.deb + '" target="_blank" rel="noopener noreferrer">.deb</a>' +
+            '<a class="fmt-btn" href="' + base + arch.packages.rpm + '" target="_blank" rel="noopener noreferrer">.rpm</a>';
+          el.innerHTML =
+            '<div class="arch-left"><span class="arch-label">' + arch.label + '</span><span class="arch-file">' + arch.desc + '</span></div>' +
+            '<div class="arch-right">' + fmtBtns + '</div>';
+        } else {
+          el = document.createElement('a');
+          el.className = 'arch-item';
+          el.href = base + arch.file;
+          el.target = '_blank';
+          el.rel = 'noopener noreferrer';
+          el.innerHTML =
+            '<div class="arch-left"><span class="arch-label">' + arch.label + '</span><span class="arch-file">' + arch.file + '</span></div>' +
+            '<div class="arch-right">' + DL_SVG + '</div>';
+        }
+        list.appendChild(el);
+      });
+    }
+
+    function updateSourceBtns() {
+      document.querySelectorAll('#source-btns .source-btn').forEach(function(btn) {
+        btn.classList.toggle('active', btn.dataset.source === currentSource);
+      });
+    }
+
+    function openModal(p) {
+      currentModalPlatform = p;
+      document.getElementById('modal-title-text').textContent = p.name;
+      document.getElementById('modal-icon').src = iconUrl(p.icon, p.color);
+      document.getElementById('modal-icon').alt = p.name;
+      renderArchList(p);
+      updateSourceBtns();
+      document.getElementById('backdrop').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      requestAnimationFrame(function() {
+        var first = document.getElementById('arch-list').querySelector('.arch-item');
+        if (first) first.focus();
+      });
+    }
+
+    function closeModal() {
+      document.getElementById('backdrop').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('backdrop').addEventListener('click', function(e) {
+      if (e.target === e.currentTarget) closeModal();
+    });
+    document.getElementById('close-btn').addEventListener('click', closeModal);
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+
+    document.getElementById('source-btns').addEventListener('click', function(e) {
+      var btn = e.target.closest('.source-btn');
+      if (!btn) return;
+      currentSource = btn.dataset.source;
+      updateSourceBtns();
+      if (currentModalPlatform) renderArchList(currentModalPlatform);
+    });
+
+    // ── Platform detection ───────────────────────────────────────
+    function detectPlatformSync() {
+      var ua = navigator.userAgent;
+      var platform = navigator.platform || '';
+      var os = null, arch = null;
+
+      if (/Macintosh|Mac OS X/.test(ua)) {
+        os = 'macos'; arch = 'arm64';
+      } else if (/Windows/.test(ua)) {
+        os = 'windows'; arch = 'x86_64';
+        if (/ARM/.test(ua) || /WOA/.test(ua)) arch = 'arm64';
+      } else if (/Android/.test(ua)) {
+        os = 'android';
+      } else if (/Linux/.test(ua)) {
+        os = 'linux'; arch = 'x86_64';
+        if (/aarch64|arm64/.test(platform)) arch = 'arm64';
+        else if (/armv7/.test(platform)) arch = 'armv7';
+      } else if (/FreeBSD/.test(ua)) {
+        os = 'freebsd'; arch = 'x86_64';
+        if (/aarch64|arm64/.test(platform)) arch = 'arm64';
+      }
+      return { os: os, arch: arch };
+    }
+
+    var detectedPlatform = detectPlatformSync();
+
+    if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
+      navigator.userAgentData.getHighEntropyValues(['architecture', 'platform']).then(function(hints) {
+        var archHint = (hints.architecture || '').toLowerCase();
+        if (detectedPlatform.os === 'macos') {
+          detectedPlatform.arch = (archHint === 'arm') ? 'arm64' : 'x86_64';
+        } else if (detectedPlatform.os === 'windows') {
+          detectedPlatform.arch = (archHint === 'arm') ? 'arm64' : 'x86_64';
+        }
+        updateHeroDownload();
+      }).catch(function() {});
+    }
+
+    function detectPlatform() { return detectedPlatform; }
+
+    function findMatchingDownload(os, arch) {
+      var p = PLATFORMS.find(function(p) { return p.id === os; });
+      if (!p || !p.archs) return null;
+      var a = p.archs.find(function(a) { return a.file.toLowerCase().indexOf(arch) !== -1; });
+      if (!a) return null;
+      return { platform: p, arch: a };
+    }
+
+    function setupHeroDownload() {
+      var det = detectPlatform();
+      if (!det.os || det.os === 'android') return;
+      var match = findMatchingDownload(det.os, det.arch);
+      if (!match) return;
+
+      var heroWrap = document.getElementById('hero-dl');
+      var heroBtn = document.getElementById('hero-dl-btn');
+      var heroLabel = document.getElementById('hero-dl-label');
+      var heroExpand = document.getElementById('hero-dl-expand');
+      var heroSub = document.getElementById('hero-dl-sub');
+
+      heroLabel.textContent = t('hero-dl-for')(match.platform.name, det.arch);
+      heroBtn.href = getBaseDL() + match.arch.file;
+      heroBtn.target = '_blank';
+      heroBtn.rel = 'noopener noreferrer';
+      heroSub.innerHTML = match.arch.file + ' \u00b7 <a href="#os-grid" id="hero-other-link">' + t('hero-dl-other') + '</a>';
+      heroWrap.style.display = '';
+      heroSub.style.display = '';
+      heroExpand.addEventListener('click', function() { openModal(match.platform); });
+    }
+
+    function updateHeroDownload() {
+      var det = detectPlatform();
+      if (!det.os || det.os === 'android') return;
+      var match = findMatchingDownload(det.os, det.arch);
+      if (!match) return;
+      document.getElementById('hero-dl-label').textContent = t('hero-dl-for')(match.platform.name, det.arch);
+      document.getElementById('hero-dl-btn').href = getBaseDL() + match.arch.file;
+      document.getElementById('hero-dl-sub').innerHTML = match.arch.file + ' \u00b7 <a href="#os-grid">' + t('hero-dl-other') + '</a>';
+    }
+
+    var _origSwitchLang = switchLang;
+    switchLang = function(lang) {
+      _origSwitchLang(lang);
+      updateHeroDownload();
+    };
+
+    document.getElementById('source-btns').addEventListener('click', function() {
+      setTimeout(updateHeroDownload, 0);
+    });
+
+    applyStaticLang();
+    document.getElementById('checksums-link').href = RELEASES_URL;
+    buildCards(PLATFORMS);
+    setupHeroDownload();
+  </script>
+</Base>
+
+<style>
+  header {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 80px 20px 60px;
+  }
+
+  .site-title {
+    font-size: 0;
+    height: 0;
+    overflow: hidden;
+    position: absolute;
+  }
+
+  .logo-wrap {
+    position: relative; z-index: 1;
+    display: inline-block;
+    background: transparent;
+    padding: 0;
+  }
+  .logo-wrap img {
+    display: block;
+    height: clamp(100px, 17vw, 160px);
+    width: auto;
+    border-radius: 16px;
+  }
+
+  .tagline {
+    position: relative; z-index: 1;
+    margin-top: 16px;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+  }
+
+  .header-actions {
+    position: relative; z-index: 1;
+    display: flex; align-items: center; justify-content: center;
+    flex-wrap: wrap; gap: 10px; margin-top: 22px;
+  }
+  .badge-link { display: inline-flex; text-decoration: none; }
+  .badge-link img { display: block; border-radius: 4px; }
+
+  .header-buttons {
+    position: relative; z-index: 1;
+    display: flex; align-items: center; justify-content: center;
+    gap: 10px; margin-top: 12px;
+  }
+
+  .btn-header {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 8px 20px; border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--accent); font-size: 0.92rem; font-weight: 600;
+    text-decoration: none;
+    transition: transform .2s, box-shadow .2s, border-color .2s, background .2s, color .2s;
+  }
+  .btn-header:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent); background: var(--accent); color: #fff;
+    box-shadow: 0 8px 22px rgba(88, 166, 255, 0.3);
+  }
+
+  .hero-dl {
+    position: relative; z-index: 1;
+    display: flex; align-items: center; justify-content: center;
+    gap: 0; margin-top: 28px;
+  }
+  .hero-dl-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 32px; border-radius: 12px 0 0 12px;
+    border: 1.5px solid var(--accent); border-right: none;
+    background: var(--accent); color: #fff;
+    font-size: 1.05rem; font-weight: 600;
+    text-decoration: none; cursor: pointer; font-family: inherit;
+    transition: background .2s, box-shadow .2s, transform .2s;
+  }
+  .hero-dl-btn:hover { background: #4393e6; box-shadow: 0 8px 28px rgba(88, 166, 255, 0.35); transform: translateY(-2px); }
+  .hero-dl-btn:active { transform: translateY(0); }
+  .hero-dl-expand {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 44px; align-self: stretch;
+    border-radius: 0 12px 12px 0;
+    border: 1.5px solid var(--accent); border-left: 1px solid rgba(255, 255, 255, 0.25);
+    background: var(--accent); color: #fff;
+    cursor: pointer; font-family: inherit;
+    transition: background .2s, box-shadow .2s, transform .2s;
+  }
+  .hero-dl-expand:hover { background: #4393e6; box-shadow: 0 8px 28px rgba(88, 166, 255, 0.35); transform: translateY(-2px); }
+  .hero-dl-expand:active { transform: translateY(0); }
+  .hero-dl-sub {
+    position: relative; z-index: 1;
+    margin-top: 8px; text-align: center;
+    font-size: 0.76rem; color: var(--text-muted);
+  }
+  .hero-dl-sub :global(a) { color: var(--accent); text-decoration: none; }
+  .hero-dl-sub :global(a:hover) { text-decoration: underline; }
+
+  main {
+    position: relative; z-index: 1;
+    max-width: 900px; margin: 0 auto; padding: 0 20px 60px;
+  }
+
+  .section-label {
+    text-align: center; font-size: 0.76rem; font-weight: 600;
+    color: var(--text-muted); text-transform: uppercase;
+    letter-spacing: 0.14em; margin-bottom: 28px;
+  }
+
+  .os-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+
+  :global(.os-card) {
+    --c: #58a6ff;
+    flex: 0 0 calc(50% - 7px);
+    position: relative; display: flex; flex-direction: column; align-items: center;
+    padding: 36px 16px 30px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px;
+    cursor: pointer; user-select: none;
+    transition: border-color .22s, transform .22s cubic-bezier(.34, 1.4, .64, 1), box-shadow .22s, background .22s;
+    outline: none; gap: 16px; overflow: hidden;
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  }
+  @media (min-width: 600px) { :global(.os-card) { flex: 0 0 calc(25% - 11px); } }
+  :global(.os-card::before) {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--c) 50%, transparent 100%);
+    opacity: 0; transition: opacity .22s;
+  }
+  :global(.os-card::after) {
+    content: ''; position: absolute; inset: 0; border-radius: inherit;
+    background: radial-gradient(ellipse at 50% -10%, var(--c) 0%, transparent 70%);
+    opacity: 0; transition: opacity .22s; pointer-events: none;
+  }
+  :global(.os-card:hover), :global(.os-card:focus-visible) {
+    border-color: var(--c); transform: translateY(-8px);
+    background: var(--bg-card-h);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, .45), 0 0 0 1px var(--c), 0 0 30px -8px var(--c);
+  }
+  :global(.os-card:hover::before), :global(.os-card:focus-visible::before) { opacity: .7; }
+  :global(.os-card:hover::after), :global(.os-card:focus-visible::after) { opacity: .06; }
+  :global(.os-card:active) { transform: translateY(-4px); }
+  :global(.os-icon) { position: relative; z-index: 1; width: 54px; height: 54px; transition: transform .22s cubic-bezier(.34, 1.4, .64, 1); }
+  :global(.os-card:hover .os-icon) { transform: scale(1.1); }
+  :global(.os-info) { position: relative; z-index: 1; text-align: center; }
+  :global(.os-name) { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+  :global(.os-sub) { font-size: 0.73rem; color: var(--text-muted); }
+  :global(.os-arrow) {
+    position: absolute; bottom: 13px; right: 13px; z-index: 1;
+    color: var(--c); opacity: 0; transform: translateX(-4px);
+    transition: opacity .18s, transform .18s;
+  }
+  :global(.os-card:hover .os-arrow) { opacity: .65; transform: translateX(0); }
+  :global(.state-msg) { text-align: center; padding: 60px 20px; color: var(--text-muted); font-size: 0.9rem; }
+
+  .backdrop {
+    position: fixed; inset: 0;
+    background: rgba(0, 0, 0, .72);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    z-index: 500; display: flex; align-items: center; justify-content: center;
+    padding: 16px; opacity: 0; pointer-events: none; transition: opacity .2s ease;
+  }
+  :global(.backdrop.open) { opacity: 1; pointer-events: all; }
+
+  .modal {
+    width: 100%; max-width: 470px;
+    background: #0d1521;
+    border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 48px 96px rgba(0, 0, 0, .6), 0 0 0 1px rgba(255, 255, 255, 0.04);
+    transform: scale(.93) translateY(18px);
+    transition: transform .28s cubic-bezier(.34, 1.3, .64, 1);
+  }
+  :global(.backdrop.open .modal) { transform: scale(1) translateY(0); }
+
+  .modal-head { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .modal-icon { width: 34px; height: 34px; flex-shrink: 0; }
+  .modal-titles { flex: 1; min-width: 0; }
+  .modal-title { font-size: 1.08rem; font-weight: 600; line-height: 1.3; }
+  .modal-sub { font-size: 0.76rem; color: var(--text-muted); margin-top: 1px; }
+  .close-btn {
+    display: flex; align-items: center; justify-content: center;
+    width: 30px; height: 30px; background: none;
+    border: 1px solid transparent; border-radius: 8px;
+    color: var(--text-muted); cursor: pointer; flex-shrink: 0;
+    transition: color .15s, background .15s, border-color .15s;
+  }
+  .close-btn:hover { color: var(--text); background: rgba(255, 255, 255, 0.06); border-color: var(--border); }
+  .divider { height: 1px; background: var(--border); margin: 0 0 18px; }
+
+  :global(.arch-list) { display: flex; flex-direction: column; gap: 7px; }
+  :global(.arch-item) {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 13px 16px; background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border); border-radius: 11px;
+    text-decoration: none; color: var(--text);
+    transition: background .15s, border-color .15s, transform .15s; cursor: pointer;
+  }
+  :global(.arch-item:not(.arch-item--multi):hover) {
+    background: rgba(88, 166, 255, 0.07); border-color: rgba(88, 166, 255, 0.32); transform: translateX(4px);
+  }
+  :global(.arch-item:not(.arch-item--multi):active) { transform: translateX(2px); }
+  :global(.arch-item--multi) { cursor: default; }
+  :global(.arch-item--multi:hover) { background: rgba(255,255,255,.04); border-color: var(--border-h); }
+  :global(.fmt-btn) {
+    display: inline-flex; align-items: center; padding: 3px 9px; border-radius: 6px;
+    border: 1px solid var(--border-h); background: rgba(0, 0, 0, 0.3);
+    color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+    text-decoration: none; transition: background .15s, border-color .15s, color .15s; white-space: nowrap;
+  }
+  :global(.fmt-btn:hover) { background: var(--accent); border-color: var(--accent); color: #fff; }
+  :global(.arch-left) { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  :global(.arch-label) { font-size: 0.9rem; font-weight: 500; }
+  :global(.arch-file) {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-muted);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  :global(.arch-right) { display: flex; align-items: center; gap: 9px; flex-shrink: 0; }
+  :global(.dl-icon) { color: #58a6ff; opacity: .45; transition: opacity .15s, transform .15s; }
+  :global(.arch-item:not(.arch-item--multi):hover .dl-icon) { opacity: 1; transform: translateY(2px); }
+
+  .modal-foot {
+    margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap;
+  }
+  .modal-foot-note { font-size: 0.74rem; color: var(--text-muted); }
+  .chk-link {
+    display: inline-flex; align-items: center; gap: 5px; padding: 5px 10px;
+    background: none; border: 1px solid var(--border); border-radius: 7px;
+    color: var(--text-muted); font-size: 0.74rem; font-family: inherit;
+    text-decoration: none; cursor: pointer;
+    transition: color .15s, border-color .15s, background .15s;
+  }
+  .chk-link:hover { color: var(--text); border-color: var(--border-h); background: rgba(255,255,255,.04); }
+  .source-toggle { display: flex; align-items: center; gap: 6px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+  .source-label { font-size: 0.74rem; color: var(--text-muted); margin-right: 4px; white-space: nowrap; }
+  :global(.source-btns) {
+    display: flex; gap: 2px; background: rgba(10, 20, 34, 0.7);
+    border: 1px solid var(--border); border-radius: 7px; padding: 2px;
+  }
+  :global(.source-btn) {
+    padding: 3px 10px; border-radius: 5px; border: none; background: transparent;
+    color: var(--text-muted); font-size: 0.72rem; font-weight: 500;
+    cursor: pointer; transition: background .15s, color .15s; font-family: inherit;
+  }
+  :global(.source-btn.active) { background: var(--border-h); color: var(--text); }
+  :global(.source-btn:hover:not(.active)) { color: var(--text); }
+
+  .subscribe-section {
+    position: relative; z-index: 1;
+    max-width: 960px; margin: 40px auto 80px; text-align: center;
+  }
+  .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 24px; }
+  @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+  .form-card {
+    display: flex; flex-direction: column;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;
+    padding: 22px 18px; text-align: left;
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    transition: border-color .22s, background .22s;
+  }
+  .form-card:hover { border-color: var(--border-h); background: var(--bg-card-h); }
+  .form-card h3 { font-size: 0.92rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .form-card p { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0; line-height: 1.5; flex: 1; }
+  .form-card .form-link { margin-top: 14px; align-self: flex-start; }
+  .form-link {
+    display: inline-flex; align-items: center; padding: 9px 14px; border-radius: 8px;
+    border: 1px solid var(--accent); background: transparent;
+    color: var(--accent); font-size: 0.82rem; font-weight: 500;
+    text-decoration: none; transition: background .15s, color .15s;
+  }
+  .form-link:hover { background: var(--accent); color: #fff; }
+  .community-grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 14px; }
+  .community-card { align-items: center; flex: 0 0 auto; width: 340px; }
+
+  footer {
+    position: relative; z-index: 1;
+    border-top: 1px solid var(--border); padding: 30px 20px;
+    text-align: center; color: var(--text-muted); font-size: 0.8rem;
+  }
+  .footer-links {
+    display: flex; align-items: center; justify-content: center;
+    gap: 6px; margin-bottom: 8px; flex-wrap: wrap;
+  }
+  footer :global(a) { color: var(--accent); text-decoration: none; }
+  footer :global(a:hover) { text-decoration: underline; }
+  .footer-sep { color: var(--border-h); }
+
+  .lang-toggle {
+    position: absolute; top: 20px; right: 24px;
+    display: flex; gap: 2px;
+    background: rgba(10, 20, 34, 0.7); border: 1px solid var(--border);
+    border-radius: 8px; padding: 3px; z-index: 10; backdrop-filter: blur(8px);
+  }
+  :global(.lang-btn) {
+    padding: 3px 10px; border-radius: 5px; border: none; background: transparent;
+    color: var(--text-muted); font-size: 0.73rem; font-weight: 500;
+    cursor: pointer; transition: background .15s, color .15s;
+  }
+  :global(.lang-btn.active) { background: var(--border-h); color: var(--text); }
+  :global(.lang-btn:hover:not(.active)) { color: var(--text); }
+</style>
