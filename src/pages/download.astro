@@ -235,8 +235,10 @@ import Base from '../layouts/Base.astro';
         { label: 'ARM64 (arm64)', desc: 'AArch64', file: 'picoclaw_Netbsd_arm64.tar.gz' },
       ]},
       { id: 'android', name: 'Android', icon: 'android', color: '#3ddc84',
-        link: 'https://docs.picoclaw.io/docs/getting-started#run-on-android-termux',
-        sub: { en: 'View Guide', zh: '\u67e5\u770b\u6559\u7a0b' },
+        archs: [
+          { label: 'Universal APK', desc: 'PicoClaw FUI (Chinese)', file: 'picoclaw_fui-v0.1.0-android-universal.apk', repo: 'picoclaw_fui' },
+          { label: 'International APK', desc: 'PicoClaw FUI (International)', file: 'picoclaw_fui-v0.1.0-android-international-universal.apk', repo: 'picoclaw_fui' },
+        ],
       },
       { id: 'docker', name: 'Docker', icon: 'docker', color: '#2496ed',
         link: 'https://docs.picoclaw.io/docs/docker',
@@ -246,10 +248,15 @@ import Base from '../layouts/Base.astro';
 
     var BASE_DL_GITHUB = 'https://github.com/sipeed/picoclaw/releases/latest/download/';
     var BASE_DL_CDN = 'https://picoclaw-downloads.tos-cn-beijing.volces.com/latest/';
+    var BASE_DL_FUI_GITHUB = 'https://github.com/sipeed/picoclaw_fui/releases/latest/download/';
+    var BASE_DL_FUI_CDN = 'https://picoclaw-downloads.tos-cn-beijing.volces.com/picoclaw_fui/latest/';
     var RELEASES_URL = 'https://github.com/sipeed/picoclaw/releases/latest';
     var currentSource = currentLang === 'zh' ? 'cdn' : 'github';
 
-    function getBaseDL() { return currentSource === 'cdn' ? BASE_DL_CDN : BASE_DL_GITHUB; }
+    function getBaseDL(repo) {
+      if (repo === 'picoclaw_fui') return currentSource === 'cdn' ? BASE_DL_FUI_CDN : BASE_DL_FUI_GITHUB;
+      return currentSource === 'cdn' ? BASE_DL_CDN : BASE_DL_GITHUB;
+    }
     var ICON_CDN = 'https://cdn.simpleicons.org/';
     var INLINE_ICONS = {
       windows: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="{COLOR}"><path d="M3 5L10.5 3.9V11H3zM11.5 3.7L21 2.5V11H11.5zM3 12H10.5V20.1L3 19zM11.5 12H21V21.5L11.5 20.3z"/></svg>',
@@ -284,10 +291,10 @@ import Base from '../layouts/Base.astro';
 
     var currentModalPlatform = null;
     function renderArchList(p) {
-      var base = getBaseDL();
       var list = document.getElementById('arch-list');
       list.innerHTML = '';
       p.archs.forEach(function(arch) {
+        var base = getBaseDL(arch.repo);
         var el;
         if (arch.packages) {
           el = document.createElement('div');
@@ -365,7 +372,7 @@ import Base from '../layouts/Base.astro';
       var m = findMatch(d.os, d.arch);
       if (!m) return;
       document.getElementById('hero-dl-label').textContent = t('hero-dl-for')(m.platform.name, d.arch);
-      document.getElementById('hero-dl-btn').href = getBaseDL() + m.arch.file;
+      document.getElementById('hero-dl-btn').href = getBaseDL(m.arch.repo) + m.arch.file;
       document.getElementById('hero-dl-btn').target = '_blank';
       document.getElementById('hero-dl-sub').innerHTML = m.arch.file + ' \u00b7 <a href="#os-grid">' + t('hero-dl-other') + '</a>';
       document.getElementById('hero-dl').style.display = '';
@@ -376,7 +383,7 @@ import Base from '../layouts/Base.astro';
       var d = detectedPlatform, m = findMatch(d.os, d.arch);
       if (!m) return;
       document.getElementById('hero-dl-label').textContent = t('hero-dl-for')(m.platform.name, d.arch);
-      document.getElementById('hero-dl-btn').href = getBaseDL() + m.arch.file;
+      document.getElementById('hero-dl-btn').href = getBaseDL(m.arch.repo) + m.arch.file;
       document.getElementById('hero-dl-sub').innerHTML = m.arch.file + ' \u00b7 <a href="#os-grid">' + t('hero-dl-other') + '</a>';
     }
     var _origSwitch = switchLang;
