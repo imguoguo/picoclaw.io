@@ -73,7 +73,7 @@ import Base from '../layouts/Base.astro';
           </div>
           <div class="stat-sep"></div>
           <div class="stat-item">
-            <span class="stat-value">12+</span>
+            <span class="stat-value">16+</span>
             <span class="stat-label" data-i18n="stat-channels">Channels</span>
           </div>
           <div class="stat-sep"></div>
@@ -134,7 +134,7 @@ import Base from '../layouts/Base.astro';
       </div>
       <div class="feature-card reveal d3">
         <div class="feature-icon">&#128172;</div>
-        <h3 data-i18n="feat-channels">12+ Chat Channels</h3>
+        <h3 data-i18n="feat-channels">16+ Chat Channels</h3>
         <p data-i18n="feat-channels-desc">Telegram, Discord, Slack, DingTalk, Feishu, WeCom, LINE, QQ and more. Connect your AI to any platform.</p>
       </div>
       <div class="feature-card reveal d3">
@@ -312,7 +312,7 @@ import Base from '../layouts/Base.astro';
       <div class="faq-list">
         <details class="faq-item reveal d3">
           <summary data-i18n="faq-q1">What is PicoClaw?</summary>
-          <p data-i18n="faq-a1">PicoClaw is an ultra-lightweight personal AI assistant written in Go. It deploys as a single binary with less than 10MB memory usage, supports 12+ chat platforms (Telegram, Discord, Slack, QQ, DingTalk, etc.), and runs on everything from a $10 Raspberry Pi to cloud servers.</p>
+          <p data-i18n="faq-a1">PicoClaw is an ultra-lightweight personal AI assistant written in Go. It deploys as a single binary with less than 10MB memory usage, supports 16+ chat platforms (Telegram, Discord, Slack, QQ, DingTalk, etc.), and runs on everything from a $10 Raspberry Pi to cloud servers.</p>
         </details>
         <details class="faq-item reveal d3">
           <summary data-i18n="faq-q2">How is PicoClaw different from ChatGPT or other AI assistants?</summary>
@@ -364,11 +364,21 @@ import Base from '../layouts/Base.astro';
           </a>
           <p data-i18n="community-wechat-desc" style="text-align:center;">Scan QR code to join the WeChat group.</p>
         </article>
-        <article class="form-card community-card">
-          <h3 data-i18n="community-discord">Discord Community</h3>
-          <p data-i18n="community-discord-desc">Join our Discord server for discussions and support.</p>
-          <a class="form-link" href="https://discord.gg/V4sAZ9XWpN" target="_blank" rel="noopener noreferrer" data-i18n="community-discord-btn">Join Discord</a>
-        </article>
+        <div class="community-right">
+          <article class="form-card">
+            <h3 data-i18n="community-discord">Discord Community</h3>
+            <p data-i18n="community-discord-desc">Join our Discord server for discussions and support.</p>
+            <a class="form-link" href="https://discord.gg/V4sAZ9XWpN" target="_blank" rel="noopener noreferrer" data-i18n="community-discord-btn">Join Discord</a>
+          </article>
+          <article class="form-card">
+            <h3 class="dev-title" data-i18n="dev-group-title">Join Dev Group</h3>
+            <p data-i18n="dev-group-desc">Submit a PR, then apply to join the developer group:</p>
+            <ul class="dev-group-steps">
+              <li data-i18n="dev-group-cn">China: Add WeChat group owner, send [Join PicoClaw Dev Group] + GitHub ID + PR #</li>
+              <li data-i18n="dev-group-intl">International: Email <a href="mailto:support@sipeed.com">support@sipeed.com</a> with [Join PicoClaw Dev Group] + GitHub ID + PR #</li>
+            </ul>
+          </article>
+        </div>
       </div>
     </section>
   </main>
@@ -445,6 +455,10 @@ import Base from '../layouts/Base.astro';
         'community-discord':    'Discord Community',
         'community-discord-desc':'Join our Discord server for discussions and support.',
         'community-discord-btn':'Join Discord',
+        'dev-group-title':      'Join Dev Group',
+        'dev-group-desc':       'Submit a PR, then apply to join the developer group:',
+        'dev-group-cn':         'China: Add WeChat group owner, send [Join PicoClaw Dev Group] + GitHub ID + PR #',
+        'dev-group-intl':       'International: Email <a href="mailto:support@sipeed.com">support@sipeed.com</a> with [Join PicoClaw Dev Group] + GitHub ID + PR #',
         'product-title':        'What is PicoClaw?',
         'product-desc':         'PicoClaw is an ultra-lightweight personal AI assistant written in Go. Deploy a single binary on any device \u2014 from a $10 Raspberry Pi to a cloud server \u2014 and get a fully functional AI assistant with less than 10MB of RAM and under 1 second startup time. 99% smaller and 400x faster than comparable solutions.',
         'feat-lightweight':     'Ultra-Lightweight',
@@ -453,7 +467,7 @@ import Base from '../layouts/Base.astro';
         'feat-fast-desc':       'Boots in under 1 second even on a 0.6GHz single-core processor. Written in Go for maximum efficiency.',
         'feat-platforms':       'Run Anywhere',
         'feat-platforms-desc':  'Raspberry Pi, RISC-V, ARM64, x86_64, Android via Termux, Docker \u2014 one binary covers all platforms.',
-        'feat-channels':        '12+ Chat Channels',
+        'feat-channels':        '16+ Chat Channels',
         'feat-channels-desc':   'Telegram, Discord, Slack, DingTalk, Feishu, WeCom, LINE, QQ and more. Connect your AI to any platform.',
         'feat-llm':             'Multi-LLM Support',
         'feat-llm-desc':        'OpenAI, Claude, DeepSeek, Doubao and more. Switch providers freely with a single config change.',
@@ -490,7 +504,7 @@ import Base from '../layouts/Base.astro';
         'uc-api-desc':          'Gateway mode turns PicoClaw into an AI backend. Connect any chat platform via MCP protocol and REST API.',
         'faq-title':            'Frequently Asked Questions',
         'faq-q1':               'What is PicoClaw?',
-        'faq-a1':               'PicoClaw is an ultra-lightweight personal AI assistant written in Go. It deploys as a single binary with less than 10MB memory usage, supports 12+ chat platforms (Telegram, Discord, Slack, QQ, DingTalk, etc.), and runs on everything from a $10 Raspberry Pi to cloud servers.',
+        'faq-a1':               'PicoClaw is an ultra-lightweight personal AI assistant written in Go. It deploys as a single binary with less than 10MB memory usage, supports 16+ chat platforms (Telegram, Discord, Slack, QQ, DingTalk, etc.), and runs on everything from a $10 Raspberry Pi to cloud servers.',
         'faq-q2':               'How is PicoClaw different from ChatGPT or other AI assistants?',
         'faq-a2':               'PicoClaw is self-hosted \u2014 your data stays on your device. It connects to LLM providers (OpenAI, Claude, DeepSeek, etc.) via API, but all conversation history and configuration remain local. It\u2019s also designed for ultra-low resource environments that cloud-based solutions can\u2019t serve.',
         'faq-q3':               'What hardware do I need to run PicoClaw?',
@@ -567,6 +581,10 @@ import Base from '../layouts/Base.astro';
         'community-discord':    'Discord 社区',
         'community-discord-desc':'加入 Discord 服务器参与讨论和获取支持。',
         'community-discord-btn':'加入 Discord',
+        'dev-group-title':      '加入开发者群',
+        'dev-group-desc':       '提交 PR 后，申请加入开发者群：',
+        'dev-group-cn':         '国内：加微信群主，发送 [Join PicoClaw Dev Group] + GitHub 账号 + PR 号',
+        'dev-group-intl':       '国外：发邮件到 <a href="mailto:support@sipeed.com">support@sipeed.com</a>，标题写 [Join PicoClaw Dev Group] + GitHub 账号 + PR 号',
         'product-title':        'PicoClaw 是什么？',
         'product-desc':         'PicoClaw 是一款用 Go 语言编写的超轻量个人 AI 助手。只需部署一个二进制文件，就能在任何设备上运行——从 10 美元的树莓派到云服务器。内存占用不到 10MB，启动时间不到 1 秒。比同类方案小 99%，快 400 倍。',
         'feat-lightweight':     '超轻量',
@@ -575,7 +593,7 @@ import Base from '../layouts/Base.astro';
         'feat-fast-desc':       '即使在 0.6GHz 单核处理器上也能 1 秒内启动。Go 语言编写，极致效率。',
         'feat-platforms':       '随处运行',
         'feat-platforms-desc':  '树莓派、RISC-V、ARM64、x86_64、Android (Termux)、Docker——一个二进制覆盖所有平台。',
-        'feat-channels':        '12+ 聊天渠道',
+        'feat-channels':        '16+ 聊天渠道',
         'feat-channels-desc':   'Telegram、Discord、Slack、钉钉、飞书、企业微信、LINE、QQ 等。将 AI 连接到任何平台。',
         'feat-llm':             '多 LLM 支持',
         'feat-llm-desc':        'OpenAI、Claude、DeepSeek、豆包等。修改一行配置即可切换提供商。',
@@ -612,7 +630,7 @@ import Base from '../layouts/Base.astro';
         'uc-api-desc':          '网关模式将 PicoClaw 变成 AI 后端。通过 MCP 协议和 REST API 连接任何聊天平台。',
         'faq-title':            '常见问题',
         'faq-q1':               'PicoClaw 是什么？',
-        'faq-a1':               'PicoClaw 是用 Go 编写的超轻量个人 AI 助手。单一二进制部署，内存占用不到 10MB，支持 12+ 聊天平台（Telegram、Discord、Slack、QQ、钉钉等），从 10 美元树莓派到云服务器都能运行。',
+        'faq-a1':               'PicoClaw 是用 Go 编写的超轻量个人 AI 助手。单一二进制部署，内存占用不到 10MB，支持 16+ 聊天平台（Telegram、Discord、Slack、QQ、钉钉等），从 10 美元树莓派到云服务器都能运行。',
         'faq-q2':               'PicoClaw 和 ChatGPT 或其他 AI 助手有什么不同？',
         'faq-a2':               'PicoClaw 是自托管的——数据留在你的设备上。它通过 API 连接 LLM 提供商，但所有对话历史和配置都保留在本地。而且它专为云方案无法服务的超低资源环境设计。',
         'faq-q3':               '运行 PicoClaw 需要什么硬件？',
@@ -1091,6 +1109,30 @@ import Base from '../layouts/Base.astro';
   .form-link:hover { background: var(--accent); color: #fff; }
   .community-grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 14px; }
   .community-card { align-items: center; flex: 0 0 auto; width: 340px; }
+  .community-right {
+    display: flex; flex-direction: column; gap: 14px;
+    flex: 0 0 auto; width: 340px;
+  }
+  .community-right .form-card { text-align: left; }
+  .dev-title { color: var(--accent) !important; }
+  .dev-group-info {
+    margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border);
+    text-align: left; width: 100%;
+  }
+  .dev-group-info h4 {
+    font-size: 0.82rem; font-weight: 600; color: var(--accent); margin-bottom: 6px;
+  }
+  .dev-group-info p {
+    font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px; line-height: 1.4;
+  }
+  .dev-group-steps {
+    list-style: none; padding: 0; margin: 0;
+    font-size: 0.73rem; color: var(--text-muted); line-height: 1.6;
+  }
+  .dev-group-steps li { padding: 2px 0 2px 12px; position: relative; }
+  .dev-group-steps li::before { content: '·'; position: absolute; left: 0; color: var(--accent); }
+  .dev-group-steps :global(a) { color: var(--accent); text-decoration: none; }
+  .dev-group-steps :global(a:hover) { text-decoration: underline; }
 
   /* ─── PRODUCT SECTION ────────────────────────────────────── */
   .product-section {
