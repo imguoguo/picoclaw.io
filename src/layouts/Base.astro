@@ -1,0 +1,183 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+  lang?: string;
+}
+
+const {
+  title = 'PicoClaw — Ultra-Lightweight AI Assistant in Go for Raspberry Pi, Linux & RISC-V',
+  description = 'PicoClaw is a self-hosted AI assistant written in Go. Single binary, <10MB RAM, 1s startup. Runs on Raspberry Pi, RISC-V, ARM64, x86_64, Android & more. Supports Telegram, Discord, Slack, DingTalk, WeChat.',
+  canonical = 'https://picoclaw.io',
+  ogImage = 'https://picoclaw.io/logo.webp',
+  lang = 'en',
+} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang={lang}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary Meta Tags -->
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="keywords" content="PicoClaw, AI assistant, lightweight AI, Go, self-hosted, Raspberry Pi, RISC-V, ARM64, Linux, macOS, Windows, Android, Termux, Telegram bot, Discord bot, Slack bot, single binary, low memory, edge AI, Sipeed, open source" />
+  <meta name="author" content="Sipeed" />
+  <link rel="canonical" href={canonical} />
+
+  <!-- hreflang: multi-language support -->
+  <link rel="alternate" hreflang="en" href={canonical} />
+  <link rel="alternate" hreflang="zh" href={canonical} />
+  <link rel="alternate" hreflang="x-default" href={canonical} />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:site_name" content="PicoClaw" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="zh_CN" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content={canonical} />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4G4CZ5MMS8"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4G4CZ5MMS8');
+  </script>
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify([
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "PicoClaw",
+      "alternateName": "PicoClaw AI Assistant",
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "AI Assistant",
+      "operatingSystem": "macOS, Windows, Linux, FreeBSD, NetBSD, Android",
+      "processorRequirements": "x86_64, ARM64, ARMv7, ARMv6, RISC-V 64, MIPS, s390x",
+      "memoryRequirements": "10MB",
+      "url": "https://picoclaw.io",
+      "downloadUrl": "https://picoclaw.io",
+      "installUrl": "https://docs.picoclaw.io/docs/getting-started/",
+      "image": "https://picoclaw.io/logo.webp",
+      "screenshot": "https://picoclaw.io/logo.webp",
+      "description": "Ultra-lightweight personal AI assistant written in Go. Single binary, <10MB RAM, boots in under 1 second. Self-hosted on Raspberry Pi, RISC-V, Linux, Android and more. Supports Telegram, Discord, Slack, DingTalk, Feishu, WeCom, LINE, QQ.",
+      "featureList": "Single binary deployment, <10MB memory, 1s startup, Multi-LLM support (OpenAI/Claude/DeepSeek), 9+ chat channels, Web search, Scheduled tasks, Docker support",
+      "softwareVersion": "latest",
+      "license": "https://github.com/sipeed/picoclaw/blob/main/LICENSE",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Sipeed",
+        "url": "https://www.sipeed.com"
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Sipeed",
+      "url": "https://www.sipeed.com",
+      "logo": "https://picoclaw.io/logo.webp",
+      "sameAs": [
+        "https://github.com/sipeed",
+        "https://discord.gg/V4sAZ9XWpN"
+      ]
+    }
+  ])} />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <slot />
+</body>
+</html>
+
+<style is:global>
+  :root {
+    --bg-card:    rgba(10, 20, 34, 0.75);
+    --bg-card-h:  rgba(16, 30, 50, 0.88);
+    --border:     rgba(255, 255, 255, 0.10);
+    --border-h:   rgba(255, 255, 255, 0.22);
+    --text:       #e8eef6;
+    --text-muted: #8a9bb0;
+    --accent:     #58a6ff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    background:
+      radial-gradient(circle at 10% 20%, rgba(79, 124, 172, 0.30) 0%, transparent 44%),
+      radial-gradient(circle at 88% 18%, rgba(247, 197, 159, 0.18) 0%, transparent 36%),
+      radial-gradient(circle at 82% 90%, rgba(108, 195, 213, 0.16) 0%, transparent 38%),
+      linear-gradient(135deg, #0d1b2a, #111e2e 52%, #172236);
+  }
+
+  body::before, body::after {
+    content: '';
+    position: fixed;
+    border-radius: 999px;
+    filter: blur(70px);
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.45;
+  }
+  body::before {
+    width: 400px; height: 400px;
+    background: linear-gradient(45deg, #1a6fa8, #0e4d7a);
+    top: -110px; left: -110px;
+  }
+  body::after {
+    width: 480px; height: 480px;
+    background: linear-gradient(45deg, #7a4a1e, #c07030);
+    bottom: -200px; right: -140px;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    animation: revealUp 700ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+  .d1 { animation-delay: 80ms; }
+  .d2 { animation-delay: 200ms; }
+  .d3 { animation-delay: 310ms; }
+  .d4 { animation-delay: 430ms; }
+  .d5 { animation-delay: 540ms; }
+
+  @keyframes revealUp { to { opacity: 1; transform: translateY(0); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { animation: none; opacity: 1; transform: none; }
+  }
+</style>
