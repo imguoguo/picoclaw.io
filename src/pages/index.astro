@@ -73,7 +73,7 @@ import Base from '../layouts/Base.astro';
           </div>
           <div class="stat-sep"></div>
           <div class="stat-item">
-            <span class="stat-value">9+</span>
+            <span class="stat-value">12+</span>
             <span class="stat-label" data-i18n="stat-channels">Channels</span>
           </div>
           <div class="stat-sep"></div>
@@ -134,7 +134,7 @@ import Base from '../layouts/Base.astro';
       </div>
       <div class="feature-card reveal d3">
         <div class="feature-icon">&#128172;</div>
-        <h3 data-i18n="feat-channels">9+ Chat Channels</h3>
+        <h3 data-i18n="feat-channels">12+ Chat Channels</h3>
         <p data-i18n="feat-channels-desc">Telegram, Discord, Slack, DingTalk, Feishu, WeCom, LINE, QQ and more. Connect your AI to any platform.</p>
       </div>
       <div class="feature-card reveal d3">
@@ -233,6 +233,12 @@ import Base from '../layouts/Base.astro';
           </thead>
           <tbody>
             <tr>
+              <td data-i18n="cmp-lang">Language</td>
+              <td>TypeScript</td>
+              <td>Python</td>
+              <td class="highlight">Go</td>
+            </tr>
+            <tr>
               <td data-i18n="cmp-memory">Memory Usage</td>
               <td>&gt;100MB</td>
               <td>&gt;100MB</td>
@@ -245,28 +251,10 @@ import Base from '../layouts/Base.astro';
               <td class="highlight">&lt;1s</td>
             </tr>
             <tr>
-              <td data-i18n="cmp-arch">Architectures</td>
-              <td>x86_64, ARM64</td>
-              <td>x86_64, ARM64</td>
-              <td class="highlight" data-i18n="cmp-arch-val">x86, ARM, RISC-V, MIPS</td>
-            </tr>
-            <tr>
               <td data-i18n="cmp-cost">Min Hardware Cost</td>
               <td>~$50</td>
               <td>~$50</td>
               <td class="highlight">~$10</td>
-            </tr>
-            <tr>
-              <td data-i18n="cmp-channels">Chat Channels</td>
-              <td>WhatsApp</td>
-              <td data-i18n="cmp-limited">Limited</td>
-              <td class="highlight" data-i18n="cmp-channels-val">9+ (TG, Discord, QQ, DingTalk...)</td>
-            </tr>
-            <tr>
-              <td data-i18n="cmp-privacy">Data Privacy</td>
-              <td data-i18n="cmp-cloud">Cloud-dependent</td>
-              <td data-i18n="cmp-cloud">Cloud-dependent</td>
-              <td class="highlight" data-i18n="cmp-local">100% Local</td>
             </tr>
           </tbody>
         </table>
@@ -324,7 +312,7 @@ import Base from '../layouts/Base.astro';
       <div class="faq-list">
         <details class="faq-item reveal d3">
           <summary data-i18n="faq-q1">What is PicoClaw?</summary>
-          <p data-i18n="faq-a1">PicoClaw is an ultra-lightweight personal AI assistant written in Go. It deploys as a single binary with less than 10MB memory usage, supports 9+ chat platforms (Telegram, Discord, Slack, QQ, DingTalk, etc.), and runs on everything from a $10 Raspberry Pi to cloud servers.</p>
+          <p data-i18n="faq-a1">PicoClaw is an ultra-lightweight personal AI assistant written in Go. It deploys as a single binary with less than 10MB memory usage, supports 12+ chat platforms (Telegram, Discord, Slack, QQ, DingTalk, etc.), and runs on everything from a $10 Raspberry Pi to cloud servers.</p>
         </details>
         <details class="faq-item reveal d3">
           <summary data-i18n="faq-q2">How is PicoClaw different from ChatGPT or other AI assistants?</summary>
@@ -465,7 +453,7 @@ import Base from '../layouts/Base.astro';
         'feat-fast-desc':       'Boots in under 1 second even on a 0.6GHz single-core processor. Written in Go for maximum efficiency.',
         'feat-platforms':       'Run Anywhere',
         'feat-platforms-desc':  'Raspberry Pi, RISC-V, ARM64, x86_64, Android via Termux, Docker \u2014 one binary covers all platforms.',
-        'feat-channels':        '9+ Chat Channels',
+        'feat-channels':        '12+ Chat Channels',
         'feat-channels-desc':   'Telegram, Discord, Slack, DingTalk, Feishu, WeCom, LINE, QQ and more. Connect your AI to any platform.',
         'feat-llm':             'Multi-LLM Support',
         'feat-llm-desc':        'OpenAI, Claude, DeepSeek, Doubao and more. Switch providers freely with a single config change.',
@@ -481,18 +469,11 @@ import Base from '../layouts/Base.astro';
         'cmp-title':            'PicoClaw vs Alternatives',
         'cmp-desc':             'Rewritten in Go for 10x performance. See how PicoClaw compares.',
         'cmp-metric':           'Metric',
+        'cmp-lang':             'Language',
         'cmp-memory':           'Memory Usage',
         'cmp-memory-val':       '<10MB',
         'cmp-startup':          'Startup Time',
-        'cmp-arch':             'Architectures',
-        'cmp-arch-val':         'x86, ARM, RISC-V, MIPS',
         'cmp-cost':             'Min Hardware Cost',
-        'cmp-channels':         'Chat Channels',
-        'cmp-limited':          'Limited',
-        'cmp-channels-val':     '9+ (TG, Discord, QQ, DingTalk...)',
-        'cmp-privacy':          'Data Privacy',
-        'cmp-cloud':            'Cloud-dependent',
-        'cmp-local':            '100% Local',
         'uc-title':             'Built for Real-World Applications',
         'uc-desc':              'From personal productivity to professional workflows, PicoClaw adapts to your needs.',
         'uc-code':              'Code Assistant',
@@ -509,7 +490,7 @@ import Base from '../layouts/Base.astro';
         'uc-api-desc':          'Gateway mode turns PicoClaw into an AI backend. Connect any chat platform via MCP protocol and REST API.',
         'faq-title':            'Frequently Asked Questions',
         'faq-q1':               'What is PicoClaw?',
-        'faq-a1':               'PicoClaw is an ultra-lightweight personal AI assistant written in Go. It deploys as a single binary with less than 10MB memory usage, supports 9+ chat platforms (Telegram, Discord, Slack, QQ, DingTalk, etc.), and runs on everything from a $10 Raspberry Pi to cloud servers.',
+        'faq-a1':               'PicoClaw is an ultra-lightweight personal AI assistant written in Go. It deploys as a single binary with less than 10MB memory usage, supports 12+ chat platforms (Telegram, Discord, Slack, QQ, DingTalk, etc.), and runs on everything from a $10 Raspberry Pi to cloud servers.',
         'faq-q2':               'How is PicoClaw different from ChatGPT or other AI assistants?',
         'faq-a2':               'PicoClaw is self-hosted \u2014 your data stays on your device. It connects to LLM providers (OpenAI, Claude, DeepSeek, etc.) via API, but all conversation history and configuration remain local. It\u2019s also designed for ultra-low resource environments that cloud-based solutions can\u2019t serve.',
         'faq-q3':               'What hardware do I need to run PicoClaw?',
@@ -594,7 +575,7 @@ import Base from '../layouts/Base.astro';
         'feat-fast-desc':       '即使在 0.6GHz 单核处理器上也能 1 秒内启动。Go 语言编写，极致效率。',
         'feat-platforms':       '随处运行',
         'feat-platforms-desc':  '树莓派、RISC-V、ARM64、x86_64、Android (Termux)、Docker——一个二进制覆盖所有平台。',
-        'feat-channels':        '9+ 聊天渠道',
+        'feat-channels':        '12+ 聊天渠道',
         'feat-channels-desc':   'Telegram、Discord、Slack、钉钉、飞书、企业微信、LINE、QQ 等。将 AI 连接到任何平台。',
         'feat-llm':             '多 LLM 支持',
         'feat-llm-desc':        'OpenAI、Claude、DeepSeek、豆包等。修改一行配置即可切换提供商。',
@@ -610,18 +591,11 @@ import Base from '../layouts/Base.astro';
         'cmp-title':            'PicoClaw 与同类方案对比',
         'cmp-desc':             '用 Go 重写，性能提升 10 倍。看看 PicoClaw 的表现。',
         'cmp-metric':           '指标',
+        'cmp-lang':             '编程语言',
         'cmp-memory':           '内存占用',
         'cmp-memory-val':       '<10MB',
         'cmp-startup':          '启动时间',
-        'cmp-arch':             '架构支持',
-        'cmp-arch-val':         'x86, ARM, RISC-V, MIPS',
         'cmp-cost':             '最低硬件成本',
-        'cmp-channels':         '聊天渠道',
-        'cmp-limited':          '有限',
-        'cmp-channels-val':     '9+ (TG, Discord, QQ, 钉钉...)',
-        'cmp-privacy':          '数据隐私',
-        'cmp-cloud':            '依赖云端',
-        'cmp-local':            '100% 本地',
         'uc-title':             '为真实场景而生',
         'uc-desc':              '从个人效率到专业工作流，PicoClaw 适应你的需求。',
         'uc-code':              '代码助手',
@@ -638,7 +612,7 @@ import Base from '../layouts/Base.astro';
         'uc-api-desc':          '网关模式将 PicoClaw 变成 AI 后端。通过 MCP 协议和 REST API 连接任何聊天平台。',
         'faq-title':            '常见问题',
         'faq-q1':               'PicoClaw 是什么？',
-        'faq-a1':               'PicoClaw 是用 Go 编写的超轻量个人 AI 助手。单一二进制部署，内存占用不到 10MB，支持 9+ 聊天平台（Telegram、Discord、Slack、QQ、钉钉等），从 10 美元树莓派到云服务器都能运行。',
+        'faq-a1':               'PicoClaw 是用 Go 编写的超轻量个人 AI 助手。单一二进制部署，内存占用不到 10MB，支持 12+ 聊天平台（Telegram、Discord、Slack、QQ、钉钉等），从 10 美元树莓派到云服务器都能运行。',
         'faq-q2':               'PicoClaw 和 ChatGPT 或其他 AI 助手有什么不同？',
         'faq-a2':               'PicoClaw 是自托管的——数据留在你的设备上。它通过 API 连接 LLM 提供商，但所有对话历史和配置都保留在本地。而且它专为云方案无法服务的超低资源环境设计。',
         'faq-q3':               '运行 PicoClaw 需要什么硬件？',
