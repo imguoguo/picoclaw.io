@@ -364,11 +364,21 @@ import Base from '../layouts/Base.astro';
           </a>
           <p data-i18n="community-wechat-desc" style="text-align:center;">Scan QR code to join the WeChat group.</p>
         </article>
-        <article class="form-card community-card">
-          <h3 data-i18n="community-discord">Discord Community</h3>
-          <p data-i18n="community-discord-desc">Join our Discord server for discussions and support.</p>
-          <a class="form-link" href="https://discord.gg/V4sAZ9XWpN" target="_blank" rel="noopener noreferrer" data-i18n="community-discord-btn">Join Discord</a>
-        </article>
+        <div class="community-right">
+          <article class="form-card">
+            <h3 data-i18n="community-discord">Discord Community</h3>
+            <p data-i18n="community-discord-desc">Join our Discord server for discussions and support.</p>
+            <a class="form-link" href="https://discord.gg/V4sAZ9XWpN" target="_blank" rel="noopener noreferrer" data-i18n="community-discord-btn">Join Discord</a>
+          </article>
+          <article class="form-card">
+            <h3 class="dev-title" data-i18n="dev-group-title">Join Dev Group</h3>
+            <p data-i18n="dev-group-desc">Submit a PR, then apply to join the developer group:</p>
+            <ul class="dev-group-steps">
+              <li data-i18n="dev-group-cn">China: Add WeChat group owner, send [Join PicoClaw Dev Group] + GitHub ID + PR #</li>
+              <li data-i18n="dev-group-intl">International: Email <a href="mailto:support@sipeed.com">support@sipeed.com</a> with [Join PicoClaw Dev Group] + GitHub ID + PR #</li>
+            </ul>
+          </article>
+        </div>
       </div>
     </section>
   </main>
@@ -445,6 +455,10 @@ import Base from '../layouts/Base.astro';
         'community-discord':    'Discord Community',
         'community-discord-desc':'Join our Discord server for discussions and support.',
         'community-discord-btn':'Join Discord',
+        'dev-group-title':      'Join Dev Group',
+        'dev-group-desc':       'Submit a PR, then apply to join the developer group:',
+        'dev-group-cn':         'China: Add WeChat group owner, send [Join PicoClaw Dev Group] + GitHub ID + PR #',
+        'dev-group-intl':       'International: Email <a href="mailto:support@sipeed.com">support@sipeed.com</a> with [Join PicoClaw Dev Group] + GitHub ID + PR #',
         'product-title':        'What is PicoClaw?',
         'product-desc':         'PicoClaw is an ultra-lightweight personal AI assistant written in Go. Deploy a single binary on any device \u2014 from a $10 Raspberry Pi to a cloud server \u2014 and get a fully functional AI assistant with less than 10MB of RAM and under 1 second startup time. 99% smaller and 400x faster than comparable solutions.',
         'feat-lightweight':     'Ultra-Lightweight',
@@ -567,6 +581,10 @@ import Base from '../layouts/Base.astro';
         'community-discord':    'Discord 社区',
         'community-discord-desc':'加入 Discord 服务器参与讨论和获取支持。',
         'community-discord-btn':'加入 Discord',
+        'dev-group-title':      '加入开发者群',
+        'dev-group-desc':       '提交 PR 后，申请加入开发者群：',
+        'dev-group-cn':         '国内：加微信群主，发送 [Join PicoClaw Dev Group] + GitHub 账号 + PR 号',
+        'dev-group-intl':       '国外：发邮件到 <a href="mailto:support@sipeed.com">support@sipeed.com</a>，标题写 [Join PicoClaw Dev Group] + GitHub 账号 + PR 号',
         'product-title':        'PicoClaw 是什么？',
         'product-desc':         'PicoClaw 是一款用 Go 语言编写的超轻量个人 AI 助手。只需部署一个二进制文件，就能在任何设备上运行——从 10 美元的树莓派到云服务器。内存占用不到 10MB，启动时间不到 1 秒。比同类方案小 99%，快 400 倍。',
         'feat-lightweight':     '超轻量',
@@ -1091,6 +1109,30 @@ import Base from '../layouts/Base.astro';
   .form-link:hover { background: var(--accent); color: #fff; }
   .community-grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 14px; }
   .community-card { align-items: center; flex: 0 0 auto; width: 340px; }
+  .community-right {
+    display: flex; flex-direction: column; gap: 14px;
+    flex: 0 0 auto; width: 340px;
+  }
+  .community-right .form-card { text-align: left; }
+  .dev-title { color: var(--accent) !important; }
+  .dev-group-info {
+    margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border);
+    text-align: left; width: 100%;
+  }
+  .dev-group-info h4 {
+    font-size: 0.82rem; font-weight: 600; color: var(--accent); margin-bottom: 6px;
+  }
+  .dev-group-info p {
+    font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px; line-height: 1.4;
+  }
+  .dev-group-steps {
+    list-style: none; padding: 0; margin: 0;
+    font-size: 0.73rem; color: var(--text-muted); line-height: 1.6;
+  }
+  .dev-group-steps li { padding: 2px 0 2px 12px; position: relative; }
+  .dev-group-steps li::before { content: '·'; position: absolute; left: 0; color: var(--accent); }
+  .dev-group-steps :global(a) { color: var(--accent); text-decoration: none; }
+  .dev-group-steps :global(a:hover) { text-decoration: underline; }
 
   /* ─── PRODUCT SECTION ────────────────────────────────────── */
   .product-section {
