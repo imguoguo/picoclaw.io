@@ -19,6 +19,41 @@ export const releases = [
     ],
   },
   {
+    version: 'v0.2.3',
+    date: '2026-03-17',
+    highlights: [
+      '<strong>System Tray UI</strong>: Desktop tray support for all platforms (macOS, Linux, FreeBSD)',
+      '<strong>Exec Controls</strong>: Configurable exec settings with cron command gating',
+      '<strong>Web Gateway</strong>: Hot reload and polling state sync for gateway management',
+      '<strong>SpawnStatusTool</strong>: New tool for reporting subagent statuses',
+    ],
+    details: [
+      'Configurable cron command execution settings in web UI',
+      'WebSocket proxy through web server port',
+      'Fix: GLM provider nil input handling in tool_use blocks',
+      'Fix: gateway no longer starts when server is not running',
+      'Fix: normalize whitelist path checks for symlinked allowed roots',
+      'Refactored gateway helpers with server.pid health check',
+    ],
+  },
+  {
+    version: 'v0.2.2',
+    date: '2026-03-11',
+    highlights: [
+      '<strong>Voice Transcription</strong>: Echo voice audio transcription for Discord, Slack, and Telegram',
+      '<strong>Agent Management UI</strong>: New web UI for agent management and launcher integration',
+      '<strong>Security Hardening</strong>: Hardened unauthenticated tool-exec paths',
+    ],
+    details: [
+      'Exec <code>allow_remote</code> config support in web settings',
+      'Session key sanitization for slash characters in forum topic keys',
+      'Fix: gateway binary path resolution and <code>--config</code> flag passing',
+      'Fix: skip meta JSON files during session migration',
+      'Fix: Slack double message in threads',
+      'Refactored skills loader markdown metadata parsing',
+    ],
+  },
+  {
     version: 'v0.2.1',
     date: '2026-03-09',
     highlights: [

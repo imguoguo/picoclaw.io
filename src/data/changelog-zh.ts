@@ -19,6 +19,41 @@ export const releases = [
     ],
   },
   {
+    version: 'v0.2.3',
+    date: '2026-03-17',
+    highlights: [
+      '<strong>系统托盘 UI</strong>：全平台桌面托盘支持（macOS、Linux、FreeBSD）',
+      '<strong>执行控制</strong>：可配置的 exec 设置，支持 cron 命令权限管控',
+      '<strong>Web 网关</strong>：热重载和轮询状态同步',
+      '<strong>SpawnStatusTool</strong>：新增子 Agent 状态上报工具',
+    ],
+    details: [
+      'Web UI 中可配置 cron 命令执行设置',
+      'WebSocket 通过 Web 服务器端口代理',
+      '修复：GLM 系列 tool_use 中的 nil input 处理',
+      '修复：网关服务器未运行时不再自动启动',
+      '修复：符号链接白名单路径检查规范化',
+      '重构网关辅助模块，新增 server.pid 健康检查',
+    ],
+  },
+  {
+    version: 'v0.2.2',
+    date: '2026-03-11',
+    highlights: [
+      '<strong>语音转写</strong>：Echo 语音转文字功能，支持 Discord、Slack、Telegram',
+      '<strong>Agent 管理 UI</strong>：新增 Web 端 Agent 管理界面和 Launcher 集成',
+      '<strong>安全加固</strong>：加固未认证的工具执行路径',
+    ],
+    details: [
+      'Web 设置中新增 exec <code>allow_remote</code> 配置',
+      '会话 key 中斜杠字符的清洗处理',
+      '修复：网关二进制路径解析和 <code>--config</code> 标志传递',
+      '修复：会话迁移时跳过 meta JSON 文件',
+      '修复：Slack 线程中的重复消息',
+      '重构技能加载器 Markdown 元数据解析',
+    ],
+  },
+  {
     version: 'v0.2.1',
     date: '2026-03-09',
     highlights: [
