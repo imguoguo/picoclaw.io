@@ -80,6 +80,18 @@ import Base from '../layouts/Base.astro';
           <span class="stat-label" data-i18n="stat-hw">Min Hardware</span>
         </div>
       </div>
+
+      <!-- Chat simulation -->
+      <div class="chat-window reveal d5" id="chat-window">
+        <div class="chat-titlebar">
+          <div class="chat-dots"><span></span><span></span><span></span></div>
+          <span class="chat-title">PicoClaw Chat</span>
+          <span class="chat-meta">
+            <span class="chat-status"></span>
+          </span>
+        </div>
+        <div class="chat-body" id="chat-body"></div>
+      </div>
     </div>
   </header>
 
@@ -137,6 +149,59 @@ import Base from '../layouts/Base.astro';
     </nav>
   </section>
 
+  <!-- Demo Section -->
+  <section class="demo-section" aria-label="Demonstrations">
+    <div class="demo-inner">
+      <h2 class="section-heading reveal d3" data-i18n="demo-title">See PicoClaw in Action</h2>
+      <p class="section-desc reveal d3" data-i18n="demo-desc">From coding to research, PicoClaw handles it all — on any hardware.</p>
+      <div class="demo-grid">
+        <div class="demo-card reveal d3">
+          <img src="/picoclaw_code.gif" alt="PicoClaw code assistant demo" width="320" height="240" loading="lazy" />
+          <h3 data-i18n="demo-code">Full-Stack Engineer Mode</h3>
+          <p data-i18n="demo-code-sub">Develop &middot; Deploy &middot; Scale</p>
+        </div>
+        <div class="demo-card reveal d3">
+          <img src="/picoclaw_memory.gif" alt="PicoClaw scheduling and memory demo" width="320" height="240" loading="lazy" />
+          <h3 data-i18n="demo-memory">Logging &amp; Planning</h3>
+          <p data-i18n="demo-memory-sub">Schedule &middot; Automate &middot; Remember</p>
+        </div>
+        <div class="demo-card reveal d3">
+          <img src="/picoclaw_search.gif" alt="PicoClaw web search demo" width="320" height="240" loading="lazy" />
+          <h3 data-i18n="demo-search">Web Search &amp; Learning</h3>
+          <p data-i18n="demo-search-sub">Discover &middot; Insights &middot; Trends</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hardware Banner -->
+  <section class="hardware-section" aria-label="Hardware compatibility">
+    <div class="hardware-inner">
+      <h2 class="section-heading reveal d3" data-i18n="hw-title">Runs on Anything</h2>
+      <p class="section-desc reveal d3" data-i18n="hw-desc">From $10 RISC-V boards to Raspberry Pi to Android phones — one binary, all platforms.</p>
+      <div class="hardware-banner reveal d4">
+        <img src="/hardware-banner.jpg" alt="PicoClaw hardware compatibility — Raspberry Pi, RISC-V, ARM, Android" width="100%" loading="lazy" />
+      </div>
+      <div class="hardware-products reveal d4">
+        <a class="hw-product" href="https://www.aliexpress.com/item/1005006519668532.html" target="_blank" rel="noopener noreferrer">
+          <span class="hw-price">$9.9</span>
+          <span class="hw-name">LicheeRV-Nano</span>
+          <span class="hw-use" data-i18n="hw-use-home">Minimal Home Assistant</span>
+        </a>
+        <a class="hw-product" href="https://www.aliexpress.com/item/1005007369816019.html" target="_blank" rel="noopener noreferrer">
+          <span class="hw-price">$30</span>
+          <span class="hw-name">NanoKVM</span>
+          <span class="hw-use" data-i18n="hw-use-server">Server Operations</span>
+        </a>
+        <a class="hw-product" href="https://www.aliexpress.com/item/1005008053333693.html" target="_blank" rel="noopener noreferrer">
+          <span class="hw-price">$50</span>
+          <span class="hw-name">MaixCAM</span>
+          <span class="hw-use" data-i18n="hw-use-vision">Smart Surveillance</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- Comparison Section -->
   <section class="comparison-section" aria-label="Performance comparison">
     <div class="comparison-inner">
@@ -191,6 +256,9 @@ import Base from '../layouts/Base.astro';
             </tr>
           </tbody>
         </table>
+      </div>
+      <div class="comparison-visual reveal d4">
+        <img src="/compare.jpg" alt="PicoClaw performance comparison chart" width="512" loading="lazy" style="max-width:100%;height:auto;border-radius:12px;" />
       </div>
     </div>
   </section>
@@ -438,6 +506,20 @@ import Base from '../layouts/Base.astro';
         'faq-a5':               'Yes! PicoClaw runs on Android via Termux. Download the ARM64 binary, install it in Termux, and you have a full AI assistant on your phone.',
         'faq-q6':               'Is PicoClaw free and open source?',
         'faq-a6':               'Yes, PicoClaw is fully open source. The software is free. You only pay for the LLM API usage (e.g., OpenAI, Claude) based on your own consumption.',
+        'chat-mem':             '<10MB RAM',
+        'demo-title':           'See PicoClaw in Action',
+        'demo-desc':            'From coding to research, PicoClaw handles it all — on any hardware.',
+        'demo-code':            'Full-Stack Engineer Mode',
+        'demo-code-sub':        'Develop · Deploy · Scale',
+        'demo-memory':          'Logging & Planning',
+        'demo-memory-sub':      'Schedule · Automate · Remember',
+        'demo-search':          'Web Search & Learning',
+        'demo-search-sub':      'Discover · Insights · Trends',
+        'hw-title':             'Runs on Anything',
+        'hw-desc':              'From $10 RISC-V boards to Raspberry Pi to Android phones — one binary, all platforms.',
+        'hw-use-home':          'Minimal Home Assistant',
+        'hw-use-server':        'Server Operations',
+        'hw-use-vision':        'Smart Surveillance',
       },
       zh: {
         'tagline':              '自托管 AI 助手 · 单一二进制 · <10MB 内存 · 1秒启动',
@@ -552,6 +634,20 @@ import Base from '../layouts/Base.astro';
         'faq-a5':               '可以！通过 Termux 在 Android 上运行。下载 ARM64 二进制，在 Termux 中安装，就能拥有完整的 AI 助手。',
         'faq-q6':               'PicoClaw 是免费开源的吗？',
         'faq-a6':               '是的，PicoClaw 完全开源。软件免费。你只需按自己的用量支付 LLM API 费用（如 OpenAI、Claude）。',
+        'chat-mem':             '<10MB 内存',
+        'demo-title':           '看看 PicoClaw 的实际表现',
+        'demo-desc':            '从编程到研究，PicoClaw 全面胜任——在任何硬件上。',
+        'demo-code':            '全栈工程师模式',
+        'demo-code-sub':        '开发 · 部署 · 扩展',
+        'demo-memory':          '日志与规划',
+        'demo-memory-sub':      '调度 · 自动化 · 记忆',
+        'demo-search':          '网络搜索与学习',
+        'demo-search-sub':      '发现 · 洞察 · 趋势',
+        'hw-title':             '在任何设备上运行',
+        'hw-desc':              '从 $10 RISC-V 开发板到树莓派到 Android 手机——一个二进制，全平台。',
+        'hw-use-home':          '极简家庭助手',
+        'hw-use-server':        '服务器运维',
+        'hw-use-vision':        '智能监控',
       },
     };
 
@@ -595,6 +691,139 @@ import Base from '../layouts/Base.astro';
     });
 
     applyStaticLang();
+
+    // ── Chat typewriter simulation ───────────────────────────
+    var CHAT_SCENES = {
+      en: [
+        {
+          user: 'Write a Python script to monitor CPU temperature on Raspberry Pi',
+          reply: 'Here\'s a lightweight monitoring script:\n```python\nimport subprocess, time\ndef get_temp():\n    out = subprocess.check_output(["vcgencmd", "measure_temp"]).decode()\n    return float(out.split("=")[1].split("\'")[0])\nwhile True:\n    t = get_temp()\n    print(f"CPU: {t}°C" + (" ⚠️" if t > 70 else " ✅"))\n    time.sleep(5)\n```\nSaved to `~/monitor.py`. Run with `python3 monitor.py`.',
+        },
+        {
+          user: 'Summarize today\'s top AI news',
+          reply: '📰 Here\'s today\'s AI digest:\n\n1. **Claude 4.6 released** — 1M context, faster output\n2. **DeepSeek open-sources R2** — new reasoning model\n3. **Llama 4 Scout** — 10M context on 16 GPUs\n\nWant me to set up a daily auto-summary?',
+        },
+        {
+          user: 'Remind me every day at 9am to check server status',
+          reply: '✅ Scheduled! Created cron job:\n```\n0 9 * * * picoclaw agent -m "Check all server status and report any issues"\n```\nI\'ll check your servers every morning at 9:00 and generate a report.',
+        },
+      ],
+      zh: [
+        {
+          user: '写一个 Python 脚本监控树莓派 CPU 温度',
+          reply: '这是一个轻量监控脚本：\n```python\nimport subprocess, time\ndef get_temp():\n    out = subprocess.check_output(["vcgencmd", "measure_temp"]).decode()\n    return float(out.split("=")[1].split("\'")[0])\nwhile True:\n    t = get_temp()\n    print(f"CPU: {t}°C" + (" ⚠️" if t > 70 else " ✅"))\n    time.sleep(5)\n```\n已保存到 `~/monitor.py`，运行 `python3 monitor.py` 即可。',
+        },
+        {
+          user: '总结今天的 AI 热点新闻',
+          reply: '📰 今日 AI 速报：\n\n1. **Claude 4.6 发布** — 1M 上下文，输出更快\n2. **DeepSeek 开源 R2** — 全新推理模型\n3. **Llama 4 Scout** — 16 GPU 支持 10M 上下文\n\n需要我设置每日自动总结吗？',
+        },
+        {
+          user: '每天早上 9 点提醒我检查服务器状态',
+          reply: '✅ 已设置！创建了定时任务：\n```\n0 9 * * * picoclaw agent -m "检查所有服务器状态并报告问题"\n```\n每天早上 9:00 我会自动检查你的服务器并生成报告。',
+        },
+      ],
+    };
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function formatReply(text) {
+      // Convert code blocks
+      var result = escapeHtml(text);
+      result = result.replace(/```(\w*)\n([\s\S]*?)```/g, function(_, lang, code) {
+        return '<pre><code>' + code + '</code></pre>';
+      });
+      // Bold
+      result = result.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      // Line breaks (outside pre)
+      result = result.replace(/\n/g, '<br/>');
+      // Fix double br inside pre
+      result = result.replace(/<pre><code>([\s\S]*?)<\/code><\/pre>/g, function(_, code) {
+        return '<pre><code>' + code.replace(/<br\/>/g, '\n') + '</code></pre>';
+      });
+      return result;
+    }
+
+    var chatBody = document.getElementById('chat-body');
+    var chatSceneIdx = 0;
+
+    function typeText(el, text, speed, cb) {
+      var i = 0;
+      var formatted = formatReply(text);
+      // For reply, type char by char on the formatted HTML
+      // Simplified: reveal chars progressively
+      el.innerHTML = '';
+      var chars = [];
+      var inTag = false;
+      for (var c = 0; c < formatted.length; c++) {
+        if (formatted[c] === '<') inTag = true;
+        if (!inTag) chars.push(c);
+        if (formatted[c] === '>') inTag = false;
+      }
+      var shown = 0;
+      function tick() {
+        shown += 3; // 3 visible chars per tick
+        if (shown >= chars.length) {
+          el.innerHTML = formatted;
+          if (cb) setTimeout(cb, 100);
+          return;
+        }
+        // Find position in formatted string that includes 'shown' visible chars
+        var pos = chars[Math.min(shown, chars.length - 1)];
+        // Find the last complete tag before pos
+        var slice = formatted.substring(0, pos + 1);
+        // Close any open tags roughly
+        el.innerHTML = slice;
+        setTimeout(tick, speed);
+      }
+      tick();
+    }
+
+    function runScene() {
+      var scenes = CHAT_SCENES[currentLang] || CHAT_SCENES.en;
+      var scene = scenes[chatSceneIdx % scenes.length];
+      chatSceneIdx++;
+
+      chatBody.innerHTML = '';
+
+      // User message
+      var userDiv = document.createElement('div');
+      userDiv.className = 'chat-msg chat-user';
+      userDiv.innerHTML = '<span class="chat-avatar">You</span><span class="chat-text">' + escapeHtml(scene.user) + '</span>';
+      chatBody.appendChild(userDiv);
+
+      // Thinking indicator
+      setTimeout(function() {
+        var thinkDiv = document.createElement('div');
+        thinkDiv.className = 'chat-msg chat-bot';
+        thinkDiv.innerHTML = '<span class="chat-avatar">🤖</span><span class="chat-text chat-thinking"><span class="dot-anim">●●●</span></span>';
+        chatBody.appendChild(thinkDiv);
+        chatBody.scrollTop = chatBody.scrollHeight;
+
+        // Replace with typed reply
+        setTimeout(function() {
+          var replySpan = thinkDiv.querySelector('.chat-text');
+          replySpan.classList.remove('chat-thinking');
+          typeText(replySpan, scene.reply, 25, function() {
+            chatBody.scrollTop = chatBody.scrollHeight;
+            // Wait then run next scene
+            setTimeout(function() {
+              // Fade out
+              chatBody.style.opacity = '0';
+              setTimeout(function() {
+                chatBody.style.opacity = '1';
+                runScene();
+              }, 400);
+            }, 4000);
+          });
+          chatBody.scrollTop = chatBody.scrollHeight;
+        }, 800);
+      }, 600);
+    }
+
+    // Start chat simulation after page load
+    setTimeout(runScene, 1500);
   </script>
 </Base>
 
@@ -1034,6 +1263,159 @@ import Base from '../layouts/Base.astro';
     .stat-sep { display: none; }
     .stat-item { flex: 0 0 45%; }
   }
+
+  /* ─── CHAT WINDOW ──────────────────────────────────────── */
+  .chat-window {
+    margin-top: 36px; max-width: 620px; margin-left: auto; margin-right: auto;
+    background: #0a1120; border: 1px solid var(--border); border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 16px 48px rgba(0,0,0,.4), 0 0 0 1px rgba(255,255,255,.04);
+  }
+  .chat-titlebar {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 16px; background: rgba(255,255,255,.03);
+    border-bottom: 1px solid var(--border);
+  }
+  .chat-dots { display: flex; gap: 6px; }
+  .chat-dots span {
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+  .chat-dots span:nth-child(1) { background: #ff5f57; }
+  .chat-dots span:nth-child(2) { background: #febc2e; }
+  .chat-dots span:nth-child(3) { background: #28c840; }
+  .chat-title {
+    font-size: 0.75rem; font-weight: 600; color: var(--text-muted); flex: 1;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .chat-meta {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 0.68rem; color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .chat-status {
+    width: 6px; height: 6px; border-radius: 50%; background: #28c840;
+    animation: pulse-dot 2s infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .chat-body {
+    padding: 16px; min-height: 260px; max-height: 320px;
+    overflow-y: auto; display: flex; flex-direction: column; gap: 12px;
+    transition: opacity .3s; text-align: left;
+  }
+  :global(.chat-msg) {
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  :global(.chat-avatar) {
+    flex-shrink: 0; font-size: 0.7rem; font-weight: 600;
+    padding: 3px 8px; border-radius: 6px;
+    background: rgba(255,255,255,.06); color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  :global(.chat-user .chat-avatar) { background: rgba(88,166,255,.15); color: var(--accent); }
+  :global(.chat-text) {
+    font-size: 0.82rem; line-height: 1.6; color: var(--text);
+    flex: 1; min-width: 0;
+  }
+  :global(.chat-text pre) {
+    background: rgba(0,0,0,.4); border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 12px; margin: 8px 0;
+    overflow-x: auto; font-size: 0.75rem;
+  }
+  :global(.chat-text code) {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.78em;
+    color: var(--accent);
+  }
+  :global(.chat-text pre code) { color: var(--text); }
+  :global(.chat-text strong) { color: var(--accent); }
+  :global(.chat-thinking) { color: var(--text-muted); }
+  :global(.dot-anim) {
+    animation: dot-blink 1.2s infinite;
+    font-size: 0.7rem; letter-spacing: 2px;
+  }
+  @keyframes dot-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+  @media (max-width: 480px) {
+    .chat-body { min-height: 200px; max-height: 260px; }
+  }
+
+  /* ─── DEMO ───────────────────────────────────────────────── */
+  .demo-section {
+    position: relative; z-index: 1;
+    max-width: 960px; margin: 0 auto; padding: 60px 20px;
+  }
+  .demo-inner { text-align: center; }
+  .demo-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+    margin-top: 8px;
+  }
+  @media (max-width: 768px) { .demo-grid { grid-template-columns: 1fr; } }
+  .demo-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
+    padding: 0; overflow: hidden; text-align: center;
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    transition: border-color .22s, transform .22s, box-shadow .22s;
+  }
+  .demo-card:hover {
+    border-color: var(--accent); transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0,0,0,.3), 0 0 0 1px var(--accent);
+  }
+  .demo-card img {
+    width: 100%; height: auto; display: block;
+    border-bottom: 1px solid var(--border);
+  }
+  .demo-card h3 {
+    font-size: 0.88rem; font-weight: 600; color: var(--text);
+    margin: 14px 16px 4px;
+  }
+  .demo-card p {
+    font-size: 0.75rem; color: var(--text-muted); margin: 0 16px 14px;
+  }
+
+  /* ─── HARDWARE ───────────────────────────────────────────── */
+  .hardware-section {
+    position: relative; z-index: 1;
+    max-width: 960px; margin: 0 auto; padding: 40px 20px 60px;
+  }
+  .hardware-inner { text-align: center; }
+  .hardware-banner {
+    margin-bottom: 28px;
+  }
+  .hardware-banner img {
+    width: 100%; height: auto; border-radius: 16px;
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 32px rgba(0,0,0,.25);
+  }
+  .hardware-products {
+    display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;
+  }
+  .hw-product {
+    display: flex; flex-direction: column; align-items: center;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 18px 24px; min-width: 160px;
+    text-decoration: none; color: var(--text);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    transition: border-color .22s, background .22s, transform .22s;
+  }
+  .hw-product:hover {
+    border-color: var(--accent); background: var(--bg-card-h); transform: translateY(-4px);
+  }
+  .hw-price {
+    font-size: 1.4rem; font-weight: 700; color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .hw-name {
+    font-size: 0.85rem; font-weight: 600; margin-top: 4px;
+  }
+  .hw-use {
+    font-size: 0.72rem; color: var(--text-muted); margin-top: 4px;
+  }
+
+  .comparison-visual { text-align: center; margin-top: 28px; }
 
   /* ─── COMPARISON ─────────────────────────────────────────── */
   .comparison-section {
