@@ -15,6 +15,7 @@ import Base from '../layouts/Base.astro';
       <a href="/download/" class="nav-link active" data-i18n="nav-download">Download</a>
       <a href="/changelog/" class="nav-link" data-i18n="nav-changelog">Changelog</a>
       <a href="https://docs.picoclaw.io" target="_blank" rel="noopener noreferrer" class="nav-link" data-i18n="nav-docs">Docs</a>
+      <a href="https://github.com/sipeed/picoclaw" target="_blank" rel="noopener noreferrer" class="nav-link">GitHub</a>
     </div>
     <div class="lang-toggle" id="lang-toggle">
       <button class="lang-btn" data-lang="en">EN</button>
@@ -234,7 +235,11 @@ import Base from '../layouts/Base.astro';
         { label: 'ARM64 (arm64)', desc: 'AArch64', file: 'picoclaw_Netbsd_arm64.tar.gz' },
       ]},
       { id: 'android', name: 'Android', icon: 'android', color: '#3ddc84',
-        link: 'https://github.com/sipeed/picoclaw?tab=readme-ov-file#-run-on-old-android-phones',
+        link: 'https://docs.picoclaw.io/docs/getting-started#run-on-android-termux',
+        sub: { en: 'View Guide', zh: '\u67e5\u770b\u6559\u7a0b' },
+      },
+      { id: 'docker', name: 'Docker', icon: 'docker', color: '#2496ed',
+        link: 'https://docs.picoclaw.io/docs/docker',
         sub: { en: 'View Guide', zh: '\u67e5\u770b\u6559\u7a0b' },
       },
     ];
