@@ -1108,10 +1108,10 @@ import Base from '../layouts/Base.astro';
   }
   .form-link:hover { background: var(--accent); color: #fff; }
   .community-grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 14px; }
-  .community-card { align-items: center; flex: 0 0 auto; width: 340px; }
+  .community-card { align-items: center; flex: 0 0 auto; width: 340px; max-width: 100%; }
   .community-right {
     display: flex; flex-direction: column; gap: 14px;
-    flex: 0 0 auto; width: 340px;
+    flex: 0 0 auto; width: 340px; max-width: 100%;
   }
   .community-right .form-card { text-align: left; }
   .dev-title { color: var(--accent) !important; }
@@ -1253,7 +1253,12 @@ import Base from '../layouts/Base.astro';
     .hero-cta { justify-content: center; }
     .hero-badges { justify-content: center; }
     .hero-stats { max-width: 100%; margin: 0 auto; }
-    .chat-frame { flex: none; max-width: 100%; width: 100%; }
+    .chat-frame {
+      flex: 0 0 auto !important; max-width: 100%; width: 100%;
+      padding: 0; background: none; border: none;
+      box-shadow: none; border-radius: 0; overflow: visible;
+    }
+    .chat-window { border-radius: 14px; }
   }
   .hero-headline {
     font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800;
@@ -1316,6 +1321,7 @@ import Base from '../layouts/Base.astro';
     background: rgba(8, 14, 28, 0.6); border: 1px solid rgba(255,255,255,.08);
     border-radius: 18px; padding: 6px;
     box-shadow: 0 20px 60px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.03);
+    overflow: hidden;
   }
   .chat-window {
     background: #0a1120; border: 1px solid var(--border); border-radius: 13px;
@@ -1351,9 +1357,12 @@ import Base from '../layouts/Base.astro';
     50% { opacity: 0.4; }
   }
   .chat-body {
-    padding: 16px; min-height: 260px; max-height: 320px;
-    overflow-y: auto; display: flex; flex-direction: column; gap: 12px;
+    padding: 16px; min-height: 280px;
+    overflow: hidden; display: flex; flex-direction: column; gap: 12px;
     transition: opacity .3s; text-align: left;
+  }
+  @media (max-width: 1024px) {
+    .chat-body { min-height: 0; }
   }
   :global(.chat-msg) {
     display: flex; gap: 10px; align-items: flex-start;
@@ -1367,12 +1376,13 @@ import Base from '../layouts/Base.astro';
   :global(.chat-user .chat-avatar) { background: rgba(88,166,255,.15); color: var(--accent); }
   :global(.chat-text) {
     font-size: 0.82rem; line-height: 1.6; color: var(--text);
-    flex: 1; min-width: 0;
+    flex: 1; min-width: 0; overflow: hidden;
   }
   :global(.chat-text pre) {
     background: rgba(0,0,0,.4); border: 1px solid var(--border);
     border-radius: 8px; padding: 10px 12px; margin: 8px 0;
-    overflow-x: auto; font-size: 0.75rem;
+    overflow-x: hidden; font-size: 0.75rem;
+    white-space: pre-wrap; word-break: break-all;
   }
   :global(.chat-text code) {
     font-family: 'JetBrains Mono', monospace; font-size: 0.78em;
@@ -1411,7 +1421,7 @@ import Base from '../layouts/Base.astro';
     transition: transform .15s;
   }
   @media (max-width: 480px) {
-    .chat-body { min-height: 200px; max-height: 260px; }
+    .chat-frame { padding: 4px; border-radius: 14px; }
   }
 
   /* ─── DEMO ───────────────────────────────────────────────── */
@@ -1502,13 +1512,17 @@ import Base from '../layouts/Base.astro';
     font-size: 0.92rem; color: var(--text-muted); margin-bottom: 32px; line-height: 1.6;
   }
   .comparison-table-wrap {
-    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
   }
   .comparison-table {
-    width: 100%; border-collapse: collapse; text-align: center; font-size: 0.88rem;
+    width: 100%; border-collapse: collapse; text-align: center; font-size: 0.85rem;
   }
   .comparison-table th, .comparison-table td {
-    padding: 14px 16px; border-bottom: 1px solid var(--border);
+    padding: 12px 8px; border-bottom: 1px solid var(--border);
+  }
+  @media (max-width: 480px) {
+    .comparison-table { font-size: 0.72rem; }
+    .comparison-table th, .comparison-table td { padding: 10px 6px; }
   }
   .comparison-table thead th {
     font-weight: 600; color: var(--text-muted); font-size: 0.8rem;
