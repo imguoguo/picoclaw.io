@@ -236,8 +236,10 @@ import Base from '../layouts/Base.astro';
       ]},
       { id: 'android', name: 'Android', icon: 'android', color: '#3ddc84',
         archs: [
-          { label: 'Universal APK', desc: 'PicoClaw FUI (Chinese)', file: 'picoclaw_fui-v0.1.0-android-universal.apk', repo: 'picoclaw_fui' },
-          { label: 'International APK', desc: 'PicoClaw FUI (International)', file: 'picoclaw_fui-v0.1.0-android-international-universal.apk', repo: 'picoclaw_fui' },
+          { label: 'Android APK', desc: 'PicoClaw FUI',
+            file: 'picoclaw_fui-android-universal.apk',
+            fileIntl: 'picoclaw_fui-android-international-universal.apk',
+            repo: 'picoclaw_fui' },
         ],
       },
       { id: 'docker', name: 'Docker', icon: 'docker', color: '#2496ed',
@@ -295,6 +297,8 @@ import Base from '../layouts/Base.astro';
       list.innerHTML = '';
       p.archs.forEach(function(arch) {
         var base = getBaseDL(arch.repo);
+        // For Android: CDN serves Chinese version (file), GitHub serves international (fileIntl)
+        var dlFile = (arch.fileIntl && currentSource === 'github') ? arch.fileIntl : arch.file;
         var el;
         if (arch.packages) {
           el = document.createElement('div');
@@ -303,10 +307,10 @@ import Base from '../layouts/Base.astro';
         } else {
           el = document.createElement('a');
           el.className = 'arch-item';
-          el.href = base + arch.file;
+          el.href = base + dlFile;
           el.target = '_blank';
           el.rel = 'noopener noreferrer';
-          el.innerHTML = '<div class="arch-left"><span class="arch-label">' + arch.label + '</span><span class="arch-file">' + arch.file + '</span></div><div class="arch-right">' + DL_SVG + '</div>';
+          el.innerHTML = '<div class="arch-left"><span class="arch-label">' + arch.label + '</span><span class="arch-file">' + dlFile + '</span></div><div class="arch-right">' + DL_SVG + '</div>';
         }
         list.appendChild(el);
       });
