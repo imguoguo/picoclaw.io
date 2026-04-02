@@ -11,6 +11,7 @@ const blog = defineCollection({
     lang: z.enum(['en', 'zh']).default('en'),
     author: z.string().default('PicoClaw Team'),
     image: z.string().optional(),
+    imageWidth: z.number().optional(),
     slug: z.string().optional(),
   }),
 });

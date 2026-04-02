@@ -1,7 +1,7 @@
 ---
 title: "Hello World! PicoClaw is Here"
 description: "Introducing the official PicoClaw channel. Learn what PicoClaw is, how to get started, and what it can do."
-date: 2026-03-28
+date: 2026-03-16
 tags: ["announcement"]
 lang: en
 author: PicoClaw Team
@@ -46,7 +46,7 @@ http://localhost:18800
 
 Configure and chat right in the browser — no command line needed.
 
-![Web Launcher](../../../assets/blog/hello-world-picoclaw-official/launcher.png)
+![Web UI](../../../assets/blog/hello-world-picoclaw-official/web-en.png)
 
 ### Option 2: TUI Launcher (Recommended for Servers / SSH)
 
@@ -58,6 +58,9 @@ picoclaw-launcher-tui
 
 Full-featured terminal UI, perfect for headless devices (Raspberry Pi, servers, etc.).
 
+
+![TUI](../../../assets/blog/hello-world-picoclaw-official/tui.png)
+
 ### Option 3: Command Line
 
 Three steps to get started:
@@ -65,6 +68,8 @@ Three steps to get started:
 1. Download the binary for your platform
 2. Run `picoclaw onboard` to initialize
 3. Start chatting with `picoclaw agent`
+
+![CLI](../../../assets/blog/hello-world-picoclaw-official/cli.png)
 
 Want Docker? One command:
 
@@ -75,8 +80,6 @@ docker compose -f docker/docker-compose.yml up -d
 Full tutorial → [docs.picoclaw.io](https://docs.picoclaw.io)
 
 ## What Can It Do?
-
-![PicoClaw Features](../../../assets/blog/hello-world-picoclaw-official/features.png)
 
 - 🔍 Web search and information gathering
 - 📅 Schedule management and reminders

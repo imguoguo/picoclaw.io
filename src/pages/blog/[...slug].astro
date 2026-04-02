@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
 import { getCollection, render } from 'astro:content';
 
@@ -12,9 +13,20 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
+const allPosts = await getCollection('blog');
 const { Content } = await render(post);
 
+const isZh = post.data.lang === 'zh';
+const backLabel = isZh ? '← 返回博客' : '← Back to Blog';
+
+// Find the counterpart article in the other language
+const bareSlug = post.id.replace(/^(?:zh|en)\//, '');
+const altLang = isZh ? 'en' : 'zh';
+const altPost = allPosts.find(p => p.data.lang === altLang && p.id.replace(/^(?:zh|en)\//, '') === bareSlug);
+const altUrl = altPost ? `/blog/${altPost.id}/` : '/blog/';
+
 function formatDate(date: Date): string {
+  if (isZh) return date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
   return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 ---
@@ -24,23 +36,11 @@ function formatDate(date: Date): string {
   canonical={`https://picoclaw.io/blog/${post.id}/`}
   lang={post.data.lang}
 >
-  <nav class="top-nav">
-    <a href="/" class="nav-brand">
-      <img src="/icon.png" alt="" width="28" height="28" class="nav-logo" />
-      <span>PicoClaw</span>
-    </a>
-    <div class="nav-links">
-      <a href="/download/" class="nav-link">Download</a>
-      <a href="/changelog/" class="nav-link">Changelog</a>
-      <a href="/blog/" class="nav-link active">Blog</a>
-      <a href="https://docs.picoclaw.io" target="_blank" rel="noopener noreferrer" class="nav-link">Docs</a>
-      <a href="https://github.com/sipeed/picoclaw" target="_blank" rel="noopener noreferrer" class="nav-link">GitHub</a>
-    </div>
-  </nav>
+  <Nav active="blog" />
 
-  <article class="blog-article">
+  <article class="blog-article" data-lang={post.data.lang} data-alt-url={altUrl}>
     <header class="article-header">
-      <a href="/blog/" class="back-link">&larr; Back to Blog</a>
+      <a href="/blog/" class="back-link">{backLabel}</a>
       <h1 class="article-title reveal d1">{post.data.title}</h1>
       <div class="article-meta reveal d2">
         <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
@@ -52,37 +52,40 @@ function formatDate(date: Date): string {
       </div>
     </header>
 
-    <div class="article-body reveal d3">
+    <div class="article-body reveal d3" style={post.data.imageWidth ? `--img-max-w: ${post.data.imageWidth}%` : undefined}>
       <Content />
     </div>
 
     <footer class="article-footer">
-      <a href="/blog/" class="back-link">&larr; Back to Blog</a>
+      <a href="/blog/" class="back-link">{backLabel}</a>
     </footer>
   </article>
 
   <Footer />
 </Base>
 
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const article = document.querySelector<HTMLElement>('.blog-article[data-lang]');
+    if (!article) return;
+    const altUrl = article.dataset.altUrl || '/blog/';
+
+    const controller = new AbortController();
+
+    window.addEventListener('lang-changed', (e: any) => {
+      const targetLang = e.detail.lang as string;
+      const currentLang = article.dataset.lang;
+      if (targetLang !== currentLang) {
+        window.location.href = altUrl;
+      }
+    }, { signal: controller.signal });
+
+    // Remove listener when navigating away from this article page
+    document.addEventListener('astro:before-swap', () => controller.abort(), { once: true });
+  });
+</script>
+
 <style>
-  .top-nav {
-    position: relative; z-index: 10;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 24px; gap: 16px;
-  }
-  .nav-brand {
-    display: inline-flex; align-items: center; gap: 8px;
-    text-decoration: none; color: var(--text); font-weight: 600; font-size: 0.92rem;
-  }
-  .nav-logo { border-radius: 6px; }
-  .nav-links { display: flex; gap: 4px; }
-  .nav-link {
-    padding: 5px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 500;
-    color: var(--text-muted); text-decoration: none; transition: color .15s, background .15s;
-  }
-  .nav-link:hover { color: var(--text); background: rgba(255,255,255,.06); }
-  .nav-link.active { color: var(--accent); background: rgba(88,166,255,.1); }
-  @media (max-width: 480px) { .nav-links { display: none; } }
 
   .blog-article {
     position: relative; z-index: 1;
@@ -123,7 +126,7 @@ function formatDate(date: Date): string {
     font-size: 1.05rem; font-weight: 600; color: var(--text); margin: 28px 0 12px;
   }
   .article-body :global(p) { margin: 16px 0; }
-  .article-body :global(img) { max-width: 100%; height: auto; border-radius: 10px; }
+  .article-body :global(img) { max-width: var(--img-max-w, 100%); height: auto; border-radius: 10px; display: block; margin-left: auto; margin-right: auto; }
   .article-body :global(a) { color: var(--accent); text-decoration: none; }
   .article-body :global(a:hover) { text-decoration: underline; }
   .article-body :global(strong) { color: var(--text); font-weight: 600; }
@@ -143,6 +146,20 @@ function formatDate(date: Date): string {
   .article-body :global(pre code) {
     padding: 0; background: none; color: var(--text); font-size: inherit;
   }
+  .article-body :global(table) {
+    width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.88rem;
+  }
+  .article-body :global(th),
+  .article-body :global(td) {
+    border: 1px solid var(--border); padding: 8px 14px; text-align: left;
+  }
+  .article-body :global(th) {
+    background: rgba(88,166,255,.08); color: var(--text); font-weight: 600;
+  }
+  .article-body :global(tr:nth-child(even) td) {
+    background: rgba(255,255,255,.03);
+  }
+
   .article-body :global(blockquote) {
     border-left: 3px solid var(--accent); padding: 8px 16px; margin: 16px 0;
     background: rgba(88,166,255,.05); border-radius: 0 8px 8px 0;
