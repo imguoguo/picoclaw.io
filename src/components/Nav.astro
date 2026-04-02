@@ -1,0 +1,166 @@
+---
+interface Props {
+  active?: string;
+}
+const { active = '' } = Astro.props;
+---
+<nav class="top-nav">
+  <a href="/" class="nav-brand">
+    <img src="/icon.png" alt="" width="28" height="28" class="nav-logo" />
+    <span>PicoClaw</span>
+  </a>
+  <div class="nav-links" id="nav-links">
+    <a href="/download/" class="nav-link" data-nav="download">Download</a>
+    <a href="/changelog/" class="nav-link" data-nav="changelog">Changelog</a>
+    <a href="/blog/" class="nav-link" data-nav="blog">Blog</a>
+    <a href="https://docs.picoclaw.io" target="_blank" rel="noopener noreferrer" class="nav-link" data-nav="docs">Docs</a>
+    <a href="https://github.com/sipeed/picoclaw" target="_blank" rel="noopener noreferrer" class="nav-link">GitHub</a>
+  </div>
+  <div class="nav-right">
+    <div class="lang-toggle" id="lang-toggle">
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="zh">中文</button>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<script>
+  const NAV_I18N: Record<string, Record<string, string>> = {
+    download:  { en: 'Download',  zh: '下载' },
+    changelog: { en: 'Changelog', zh: '更新日志' },
+    blog:      { en: 'Blog',      zh: '博客' },
+    docs:      { en: 'Docs',      zh: '文档' },
+  };
+
+  function getLang(): string {
+    const saved = localStorage.getItem('lang');
+    if (saved === 'en' || saved === 'zh') return saved;
+    return navigator.language.startsWith('zh') ? 'zh' : 'en';
+  }
+
+  function updateNav() {
+    const path = window.location.pathname;
+    const lang = getLang();
+
+    // Update active state
+    document.querySelectorAll('#nav-links .nav-link').forEach(link => {
+      const el = link as HTMLAnchorElement;
+      const href = el.getAttribute('href');
+      const isInternal = href && !href.startsWith('http');
+      el.classList.toggle('active', !!(isInternal && path.startsWith(href)));
+
+      // Update text
+      const key = el.dataset.nav;
+      if (key && NAV_I18N[key]) {
+        el.textContent = NAV_I18N[key][lang] || NAV_I18N[key].en;
+      }
+    });
+
+    // Update lang buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      (btn as HTMLElement).classList.toggle('active', (btn as HTMLElement).dataset.lang === lang);
+    });
+  }
+
+  // Run on every navigation (after-swap is synchronous, most reliable)
+  document.addEventListener('astro:after-swap', updateNav);
+
+  // Also on initial page load
+  document.addEventListener('astro:page-load', () => {
+    updateNav();
+
+    // Hamburger — clone to avoid duplicate listeners
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+    if (!hamburger || !navLinks) return;
+
+    const fresh = hamburger.cloneNode(true) as HTMLElement;
+    hamburger.replaceWith(fresh);
+
+    fresh.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      fresh.classList.toggle('open');
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        fresh.classList.remove('open');
+      });
+    });
+  });
+
+  // Lang toggle — handled centrally by Nav, dispatches event for pages
+  document.addEventListener('astro:page-load', () => {
+    const toggle = document.getElementById('lang-toggle');
+    if (!toggle) return;
+    const fresh = toggle.cloneNode(true) as HTMLElement;
+    toggle.replaceWith(fresh);
+
+    fresh.addEventListener('click', (e) => {
+      const btn = (e.target as HTMLElement).closest('.lang-btn') as HTMLElement | null;
+      if (!btn || !btn.dataset.lang) return;
+      localStorage.setItem('lang', btn.dataset.lang);
+      updateNav();
+      window.dispatchEvent(new CustomEvent('lang-changed', { detail: { lang: btn.dataset.lang } }));
+    });
+  });
+</script>
+
+<style>
+  .top-nav {
+    position: relative; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 24px; gap: 16px;
+  }
+  .nav-brand {
+    display: inline-flex; align-items: center; gap: 8px;
+    text-decoration: none; color: var(--text); font-weight: 600; font-size: 0.92rem;
+  }
+  .nav-logo { border-radius: 6px; }
+  .nav-links { display: flex; gap: 4px; }
+  .nav-link {
+    padding: 5px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 500;
+    color: var(--text-muted); text-decoration: none; transition: color .15s, background .15s;
+  }
+  .nav-link:hover { color: var(--text); background: rgba(255,255,255,.06); }
+  .nav-link.active { color: var(--accent); background: rgba(88,166,255,.1); }
+  .nav-right { display: flex; align-items: center; gap: 8px; }
+  .lang-toggle {
+    display: flex; gap: 2px; flex-shrink: 0;
+    background: rgba(10, 20, 34, 0.7); border: 1px solid var(--border);
+    border-radius: 8px; padding: 3px; backdrop-filter: blur(8px);
+  }
+  :global(.lang-btn) {
+    padding: 3px 10px; border-radius: 5px; border: none; background: transparent;
+    color: var(--text-muted); font-size: 0.73rem; font-weight: 500;
+    cursor: pointer; transition: background .15s, color .15s;
+  }
+  :global(.lang-btn.active) { background: var(--border-h); color: var(--text); }
+  :global(.lang-btn:hover:not(.active)) { color: var(--text); }
+  .hamburger {
+    display: none; flex-direction: column; gap: 4px;
+    background: none; border: none; cursor: pointer; padding: 6px;
+  }
+  .hamburger span {
+    display: block; width: 20px; height: 2px; background: var(--text-muted);
+    border-radius: 2px; transition: transform .2s, opacity .2s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none; position: absolute; top: 100%; left: 0; right: 0;
+      flex-direction: column; padding: 12px 24px 16px;
+      background: rgba(10, 20, 34, 0.95); border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    }
+    .nav-links.open { display: flex; }
+    .nav-link { padding: 10px 12px; font-size: 0.88rem; }
+    .hamburger { display: flex; }
+  }
+</style>

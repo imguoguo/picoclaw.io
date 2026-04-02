@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
 import { releases as releasesEn } from '../data/changelog-en';
 import { releases as releasesZh } from '../data/changelog-zh';
 
@@ -10,23 +11,7 @@ const GITHUB_BASE = 'https://github.com/sipeed/picoclaw/releases/tag/';
   description="View PicoClaw release notes, version history, new features, bug fixes, and improvements. Stay up to date with the latest PicoClaw releases."
   canonical="https://picoclaw.io/changelog/"
 >
-  <nav class="top-nav">
-    <a href="/" class="nav-brand">
-      <img src="/icon.png" alt="" width="28" height="28" class="nav-logo" />
-      <span>PicoClaw</span>
-    </a>
-    <div class="nav-links">
-      <a href="/download/" class="nav-link" data-i18n="nav-download">Download</a>
-      <a href="/changelog/" class="nav-link active" data-i18n="nav-changelog">Changelog</a>
-      <a href="/blog/" class="nav-link" data-i18n="nav-blog">Blog</a>
-      <a href="https://docs.picoclaw.io" target="_blank" rel="noopener noreferrer" class="nav-link" data-i18n="nav-docs">Docs</a>
-      <a href="https://github.com/sipeed/picoclaw" target="_blank" rel="noopener noreferrer" class="nav-link">GitHub</a>
-    </div>
-    <div class="lang-toggle" id="lang-toggle">
-      <button class="lang-btn active" data-lang="en">EN</button>
-      <button class="lang-btn" data-lang="zh">中文</button>
-    </div>
-  </nav>
+  <Nav active="changelog" />
 
   <header>
     <h1 class="page-title reveal d1">Changelog</h1>
@@ -96,72 +81,48 @@ const GITHUB_BASE = 'https://github.com/sipeed/picoclaw/releases/tag/';
     <div>PicoClaw is open-source software by <a href="https://github.com/sipeed" target="_blank" rel="noopener noreferrer">Sipeed</a></div>
   </footer>
 
-  <script is:inline>
-    var saved = localStorage.getItem('lang');
-    var lang = (saved === 'zh' || (!saved && navigator.language.startsWith('zh'))) ? 'zh' : 'en';
+  <script>
+    document.addEventListener('astro:page-load', () => {
+      if (!window.location.pathname.startsWith('/changelog')) return;
 
-    function applyLang(l) {
-      document.documentElement.lang = l === 'zh' ? 'zh-CN' : 'en';
-      // Toggle release blocks
-      document.querySelectorAll('.releases[data-lang]').forEach(function(el) {
-        el.style.display = el.dataset.lang === l ? '' : 'none';
-      });
-      // Page text
-      var title = document.querySelector('.page-title');
-      var desc = document.querySelector('.page-desc');
-      var allLink = document.querySelector('.all-releases-link');
-      if (l === 'zh') {
-        if (title) title.textContent = '更新日志';
-        if (desc) desc.textContent = 'PicoClaw 版本发布记录与更新历史';
-        if (allLink) allLink.innerHTML = '在 GitHub 上查看所有版本 →';
-      } else {
-        if (title) title.textContent = 'Changelog';
-        if (desc) desc.textContent = 'Release notes and version history for PicoClaw';
-        if (allLink) allLink.innerHTML = 'View all releases on GitHub →';
+      var saved = localStorage.getItem('lang');
+      var lang = (saved === 'zh' || (!saved && navigator.language.startsWith('zh'))) ? 'zh' : 'en';
+
+      function applyLang(l: string) {
+        document.documentElement.lang = l === 'zh' ? 'zh-CN' : 'en';
+        // Toggle release blocks
+        document.querySelectorAll<HTMLElement>('.releases[data-lang]').forEach(function(el) {
+          el.style.display = el.dataset.lang === l ? '' : 'none';
+        });
+        // Page text
+        var title = document.querySelector('.page-title');
+        var desc = document.querySelector('.page-desc');
+        var allLink = document.querySelector('.all-releases-link');
+        if (l === 'zh') {
+          if (title) title.textContent = '更新日志';
+          if (desc) desc.textContent = 'PicoClaw 版本发布记录与更新历史';
+          if (allLink) allLink.innerHTML = '在 GitHub 上查看所有版本 →';
+        } else {
+          if (title) title.textContent = 'Changelog';
+          if (desc) desc.textContent = 'Release notes and version history for PicoClaw';
+          if (allLink) allLink.innerHTML = 'View all releases on GitHub →';
+        }
+        // Buttons
+        document.querySelectorAll<HTMLElement>('.lang-btn').forEach(function(btn) {
+          btn.classList.toggle('active', btn.dataset.lang === l);
+        });
       }
-      // Nav
-      document.querySelectorAll('[data-i18n="nav-download"]').forEach(function(el) { el.textContent = l === 'zh' ? '下载' : 'Download'; });
-      document.querySelectorAll('[data-i18n="nav-changelog"]').forEach(function(el) { el.textContent = l === 'zh' ? '更新日志' : 'Changelog'; });
-      document.querySelectorAll('[data-i18n="nav-blog"]').forEach(function(el) { el.textContent = l === 'zh' ? '博客' : 'Blog'; });
-      document.querySelectorAll('[data-i18n="nav-docs"]').forEach(function(el) { el.textContent = l === 'zh' ? '文档' : 'Docs'; });
-      // Buttons
-      document.querySelectorAll('.lang-btn').forEach(function(btn) {
-        btn.classList.toggle('active', btn.dataset.lang === l);
-      });
-    }
 
-    applyLang(lang);
-
-    document.getElementById('lang-toggle').addEventListener('click', function(e) {
-      var btn = e.target.closest('.lang-btn');
-      if (!btn) return;
-      lang = btn.dataset.lang;
-      localStorage.setItem('lang', lang);
       applyLang(lang);
+
+      window.addEventListener('lang-changed', function(e: any) {
+        applyLang(e.detail.lang);
+      });
     });
   </script>
 </Base>
 
 <style>
-  .top-nav {
-    position: relative; z-index: 10;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 24px; gap: 16px;
-  }
-  .nav-brand {
-    display: inline-flex; align-items: center; gap: 8px;
-    text-decoration: none; color: var(--text); font-weight: 600; font-size: 0.92rem;
-  }
-  .nav-logo { border-radius: 6px; }
-  .nav-links { display: flex; gap: 4px; }
-  .nav-link {
-    padding: 5px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 500;
-    color: var(--text-muted); text-decoration: none; transition: color .15s, background .15s;
-  }
-  .nav-link:hover { color: var(--text); background: rgba(255,255,255,.06); }
-  .nav-link.active { color: var(--accent); background: rgba(88,166,255,.1); }
-  @media (max-width: 480px) { .nav-links { display: none; } }
-
   header {
     position: relative; z-index: 1; text-align: center; padding: 20px 20px 40px;
   }
@@ -236,13 +197,4 @@ const GITHUB_BASE = 'https://github.com/sipeed/picoclaw/releases/tag/';
   footer a { color: var(--accent); text-decoration: none; }
   footer a:hover { text-decoration: underline; }
   .footer-sep { color: var(--border-h); }
-
-  .lang-toggle {
-    display: flex; gap: 2px; flex-shrink: 0;
-    background: rgba(10,20,34,.7); border: 1px solid var(--border); border-radius: 8px;
-    padding: 3px; backdrop-filter: blur(8px);
-  }
-  .lang-btn { padding: 3px 10px; border-radius: 5px; border: none; background: transparent; color: var(--text-muted); font-size: 0.73rem; font-weight: 500; cursor: pointer; transition: background .15s, color .15s; }
-  .lang-btn.active { background: var(--border-h); color: var(--text); }
-  .lang-btn:hover:not(.active) { color: var(--text); }
 </style>

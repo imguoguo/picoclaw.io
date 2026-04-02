@@ -1,28 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
 ---
 <Base
   title="Download PicoClaw for Linux, macOS, Windows, ARM64 & RISC-V"
   description="Download PicoClaw — ultra-lightweight AI assistant. Available for macOS (Apple Silicon & Intel), Windows, Linux (x86_64, ARM64, ARMv7, RISC-V, MIPS), FreeBSD, NetBSD, and Android. Single binary, no dependencies."
   canonical="https://picoclaw.io/download/"
 >
-  <nav class="top-nav">
-    <a href="/" class="nav-brand">
-      <img src="/icon.png" alt="" width="28" height="28" class="nav-logo" />
-      <span>PicoClaw</span>
-    </a>
-    <div class="nav-links">
-      <a href="/download/" class="nav-link active" data-i18n="nav-download">Download</a>
-      <a href="/changelog/" class="nav-link" data-i18n="nav-changelog">Changelog</a>
-      <a href="/blog/" class="nav-link" data-i18n="nav-blog">Blog</a>
-      <a href="https://docs.picoclaw.io" target="_blank" rel="noopener noreferrer" class="nav-link" data-i18n="nav-docs">Docs</a>
-      <a href="https://github.com/sipeed/picoclaw" target="_blank" rel="noopener noreferrer" class="nav-link">GitHub</a>
-    </div>
-    <div class="lang-toggle" id="lang-toggle">
-      <button class="lang-btn" data-lang="en">EN</button>
-      <button class="lang-btn" data-lang="zh">中文</button>
-    </div>
-  </nav>
+  <Nav active="download" />
 
   <header>
     <h1 class="page-title reveal d1" data-i18n="dl-title">Download PicoClaw</h1>
@@ -122,7 +107,10 @@ import Base from '../layouts/Base.astro';
     <div id="footer-credit">PicoClaw is open-source software by <a href="https://github.com/sipeed" target="_blank" rel="noopener noreferrer">Sipeed</a></div>
   </footer>
 
-  <script is:inline>
+  <script>
+    document.addEventListener('astro:page-load', () => {
+    if (!window.location.pathname.startsWith('/download')) return;
+
     // ── i18n (download page) ─────────────────────────────────────
     var TRANSLATIONS = {
       en: {
@@ -145,10 +133,6 @@ import Base from '../layouts/Base.astro';
         'install-docs-title':   'Full Guide',
         'install-docs-desc':    'For detailed installation instructions, Docker setup, and Android/Termux support:',
         'install-docs-link':    'Read Installation Guide →',
-        'nav-download':         'Download',
-        'nav-changelog':        'Changelog',
-        'nav-blog':             'Blog',
-        'nav-docs':             'Docs',
       },
       zh: {
         'dl-title':             '下载 PicoClaw',
@@ -170,10 +154,6 @@ import Base from '../layouts/Base.astro';
         'install-docs-title':   '完整指南',
         'install-docs-desc':    '详细的安装说明、Docker 部署和 Android/Termux 支持：',
         'install-docs-link':    '阅读安装指南 →',
-        'nav-download':         '下载',
-        'nav-changelog':        '更新日志',
-        'nav-blog':             '博客',
-        'nav-docs':             '文档',
       },
     };
 
@@ -204,9 +184,8 @@ import Base from '../layouts/Base.astro';
       applyStaticLang();
       if (platformData) buildCards(platformData);
     }
-    document.getElementById('lang-toggle').addEventListener('click', function(e) {
-      var btn = e.target.closest('.lang-btn');
-      if (btn) switchLang(btn.dataset.lang);
+    window.addEventListener('lang-changed', function(e) {
+      switchLang(e.detail.lang);
     });
 
     // ── Platform data & download logic (same as homepage) ────────
@@ -401,29 +380,11 @@ import Base from '../layouts/Base.astro';
     document.getElementById('checksums-link').href = RELEASES_URL;
     buildCards(PLATFORMS);
     setupHero();
+    }); // end astro:page-load
   </script>
 </Base>
 
 <style>
-  .top-nav {
-    position: relative; z-index: 10;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 24px; gap: 16px;
-  }
-  .nav-brand {
-    display: inline-flex; align-items: center; gap: 8px;
-    text-decoration: none; color: var(--text); font-weight: 600; font-size: 0.92rem;
-  }
-  .nav-logo { border-radius: 6px; }
-  .nav-links { display: flex; gap: 4px; }
-  .nav-link {
-    padding: 5px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 500;
-    color: var(--text-muted); text-decoration: none; transition: color .15s, background .15s;
-  }
-  .nav-link:hover { color: var(--text); background: rgba(255,255,255,.06); }
-  .nav-link.active { color: var(--accent); background: rgba(88,166,255,.1); }
-  @media (max-width: 480px) { .nav-links { display: none; } }
-
   header {
     position: relative; z-index: 1; text-align: center; padding: 20px 20px 40px;
   }
@@ -553,12 +514,4 @@ import Base from '../layouts/Base.astro';
   footer :global(a:hover) { text-decoration: underline; }
   .footer-sep { color: var(--border-h); }
 
-  .lang-toggle {
-    display: flex; gap: 2px; flex-shrink: 0;
-    background: rgba(10,20,34,.7); border: 1px solid var(--border); border-radius: 8px;
-    padding: 3px; backdrop-filter: blur(8px);
-  }
-  :global(.lang-btn) { padding:3px 10px; border-radius:5px; border:none; background:transparent; color:var(--text-muted); font-size:0.73rem; font-weight:500; cursor:pointer; transition:background .15s,color .15s; }
-  :global(.lang-btn.active) { background:var(--border-h); color:var(--text); }
-  :global(.lang-btn:hover:not(.active)) { color:var(--text); }
 </style>

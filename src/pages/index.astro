@@ -1,24 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
 ---
 <Base>
-  <nav class="top-nav">
-    <a href="/" class="nav-brand">
-      <img src="/icon.png" alt="" width="28" height="28" class="nav-logo" />
-      <span>PicoClaw</span>
-    </a>
-    <div class="nav-links">
-      <a href="/download/" class="nav-link" data-i18n="nav-download">Download</a>
-      <a href="/changelog/" class="nav-link" data-i18n="nav-changelog">Changelog</a>
-      <a href="/blog/" class="nav-link" data-i18n="nav-blog">Blog</a>
-      <a href="https://docs.picoclaw.io" target="_blank" rel="noopener noreferrer" class="nav-link" data-i18n="nav-docs">Docs</a>
-      <a href="https://github.com/sipeed/picoclaw" target="_blank" rel="noopener noreferrer" class="nav-link">GitHub</a>
-    </div>
-    <div class="lang-toggle" id="lang-toggle">
-      <button class="lang-btn" data-lang="en">EN</button>
-      <button class="lang-btn" data-lang="zh">中文</button>
-    </div>
-  </nav>
+  <Nav />
 
   <header>
     <div class="hero-layout">
@@ -403,7 +388,7 @@ import Base from '../layouts/Base.astro';
     <div id="footer-credit">PicoClaw is open-source software by <a href="https://github.com/sipeed" target="_blank" rel="noopener noreferrer">Sipeed</a></div>
   </footer>
 
-  <script is:inline>
+  <script>
     // ── i18n ──────────────────────────────────────────────────────
     const TRANSLATIONS = {
       en: {
@@ -416,10 +401,6 @@ import Base from '../layouts/Base.astro';
         'footer-docs':          'Docs',
         'footer-releases':      'All Releases',
         'footer-issues':        'Issues',
-        'nav-download':         'Download',
-        'nav-changelog':        'Changelog',
-        'nav-blog':             'Blog',
-        'nav-docs':             'Docs',
         'hero-headline':        'Ultra-Lightweight AI Assistant<br/>Written in Go',
         'hero-sub':             'Single binary \u00b7 <10MB RAM \u00b7 1s startup \u00b7 Runs on $10 hardware',
         'hero-dl-btn':          'Download PicoClaw',
@@ -543,10 +524,6 @@ import Base from '../layouts/Base.astro';
         'footer-docs':          '文档',
         'footer-releases':      '所有版本',
         'footer-issues':        '问题反馈',
-        'nav-download':         '下载',
-        'nav-changelog':        '更新日志',
-        'nav-blog':             '博客',
-        'nav-docs':             '文档',
         'hero-headline':        '超轻量 AI 助手<br/>用 Go 语言编写',
         'hero-sub':             '单一二进制 · <10MB 内存 · 1秒启动 · 10美元硬件即可运行',
         'hero-dl-btn':          '下载 PicoClaw',
@@ -662,48 +639,7 @@ import Base from '../layouts/Base.astro';
       },
     };
 
-    function detectLang() {
-      var saved = localStorage.getItem('lang');
-      if (saved && TRANSLATIONS[saved]) return saved;
-      return navigator.language.startsWith('zh') ? 'zh' : 'en';
-    }
-
-    var currentLang = detectLang();
-
-    function t(key) {
-      return (TRANSLATIONS[currentLang] || TRANSLATIONS.en)[key]
-          || TRANSLATIONS.en[key]
-          || key;
-    }
-
-    function applyStaticLang() {
-      document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
-      document.querySelectorAll('[data-i18n]').forEach(function(el) {
-        var val = t(el.dataset.i18n);
-        if (typeof val === 'string' && val.indexOf('<') !== -1) el.innerHTML = val;
-        else if (typeof val === 'string') el.textContent = val;
-      });
-      document.querySelectorAll('.lang-btn').forEach(function(btn) {
-        btn.classList.toggle('active', btn.dataset.lang === currentLang);
-      });
-    }
-
-    function switchLang(lang) {
-      currentLang = lang;
-      currentSource = lang === 'zh' ? 'cdn' : 'github';
-      localStorage.setItem('lang', lang);
-      applyStaticLang();
-      if (platformData) buildCards(platformData);
-    }
-
-    document.getElementById('lang-toggle').addEventListener('click', function(e) {
-      var btn = e.target.closest('.lang-btn');
-      if (btn) switchLang(btn.dataset.lang);
-    });
-
-    applyStaticLang();
-
-    // ── Chat typewriter simulation ───────────────────────────
+    // ── Chat scene data ────────────────────────────────────
     var CHAT_SCENES = {
       en: [
         {
@@ -735,6 +671,7 @@ import Base from '../layouts/Base.astro';
       ],
     };
 
+    // ── Pure utility functions (no DOM dependency) ───────────
     function escapeHtml(str) {
       return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
@@ -756,16 +693,10 @@ import Base from '../layouts/Base.astro';
       return result;
     }
 
-    var chatBody = document.getElementById('chat-body');
-    var chatSceneIdx = 0;
-
-    function typeText(el, text, speed, cb) {
-      var i = 0;
+    function typeText(el: any, text: string, speed: number, cb: (() => void) | null) {
       var formatted = formatReply(text);
-      // For reply, type char by char on the formatted HTML
-      // Simplified: reveal chars progressively
       el.innerHTML = '';
-      var chars = [];
+      var chars: number[] = [];
       var inTag = false;
       for (var c = 0; c < formatted.length; c++) {
         if (formatted[c] === '<') inTag = true;
@@ -774,67 +705,126 @@ import Base from '../layouts/Base.astro';
       }
       var shown = 0;
       function tick() {
-        shown += 3; // 3 visible chars per tick
+        shown += 3;
         if (shown >= chars.length) {
           el.innerHTML = formatted;
-          if (cb) setTimeout(cb, 100);
+          if (cb) window._chatTimers?.push(setTimeout(cb, 100) as unknown as number);
           return;
         }
-        // Find position in formatted string that includes 'shown' visible chars
         var pos = chars[Math.min(shown, chars.length - 1)];
-        // Find the last complete tag before pos
-        var slice = formatted.substring(0, pos + 1);
-        // Close any open tags roughly
-        el.innerHTML = slice;
-        setTimeout(tick, speed);
+        el.innerHTML = formatted.substring(0, pos + 1);
+        window._chatTimers?.push(setTimeout(tick, speed) as unknown as number);
       }
       tick();
     }
 
-    function runScene() {
-      var scenes = CHAT_SCENES[currentLang] || CHAT_SCENES.en;
-      var scene = scenes[chatSceneIdx % scenes.length];
-      chatSceneIdx++;
+    // ── Page-load handler (runs on every navigation with View Transitions) ──
+    document.addEventListener('astro:page-load', () => {
+      // Clean up any previous chat timers from a prior page-load
+      if (window._chatTimers) {
+        window._chatTimers.forEach(function(id: number) { clearTimeout(id); });
+      }
+      window._chatTimers = [] as number[];
 
-      chatBody.innerHTML = '';
+      // Guard: only run on homepage
+      if (window.location.pathname !== '/') return;
+      var chatBody = document.getElementById('chat-body');
 
-      // User message
-      var userDiv = document.createElement('div');
-      userDiv.className = 'chat-msg chat-user';
-      userDiv.innerHTML = '<span class="chat-avatar">You</span><span class="chat-text">' + escapeHtml(scene.user) + '</span>';
-      chatBody.appendChild(userDiv);
+      // ── i18n init ──
+      function detectLang() {
+        var saved = localStorage.getItem('lang');
+        if (saved && TRANSLATIONS[saved]) return saved;
+        return navigator.language.startsWith('zh') ? 'zh' : 'en';
+      }
 
-      // Thinking indicator
-      setTimeout(function() {
-        var thinkDiv = document.createElement('div');
-        thinkDiv.className = 'chat-msg chat-bot';
-        thinkDiv.innerHTML = '<span class="chat-avatar">🤖</span><span class="chat-text chat-thinking"><span class="dot-anim">●●●</span></span>';
-        chatBody.appendChild(thinkDiv);
-        chatBody.scrollTop = chatBody.scrollHeight;
+      var currentLang = detectLang();
 
-        // Replace with typed reply
-        setTimeout(function() {
-          var replySpan = thinkDiv.querySelector('.chat-text');
-          replySpan.classList.remove('chat-thinking');
-          typeText(replySpan, scene.reply, 25, function() {
-            chatBody.scrollTop = chatBody.scrollHeight;
-            // Wait then run next scene
-            setTimeout(function() {
-              // Fade out
-              chatBody.style.opacity = '0';
-              setTimeout(function() {
-                chatBody.style.opacity = '1';
-                runScene();
-              }, 400);
-            }, 4000);
-          });
+      function t(key) {
+        return (TRANSLATIONS[currentLang] || TRANSLATIONS.en)[key]
+            || TRANSLATIONS.en[key]
+            || key;
+      }
+
+      function applyStaticLang() {
+        document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
+        document.querySelectorAll('[data-i18n]').forEach(function(el) {
+          var val = t(el.dataset.i18n);
+          if (typeof val === 'string' && val.indexOf('<') !== -1) el.innerHTML = val;
+          else if (typeof val === 'string') el.textContent = val;
+        });
+      }
+
+      function switchLang(lang) {
+        currentLang = lang;
+        localStorage.setItem('lang', lang);
+        applyStaticLang();
+        // Reset chat to show scenes in new language
+        chatSceneIdx = 0;
+        chatBody.innerHTML = '';
+        window._chatTimers.forEach(function(id: number) { clearTimeout(id); });
+        window._chatTimers = [];
+        window._chatTimers.push(setTimeout(runScene, 500) as unknown as number);
+      }
+
+      window.addEventListener('lang-changed', function(e) {
+        switchLang(e.detail.lang);
+      });
+
+      applyStaticLang();
+
+      // ── Chat typewriter simulation ───────────────────────────
+      function chatDelay(fn: () => void, ms: number) {
+        var id = setTimeout(fn, ms);
+        window._chatTimers.push(id as unknown as number);
+      }
+
+      var chatSceneIdx = 0;
+
+      function runScene() {
+        var scenes = CHAT_SCENES[currentLang] || CHAT_SCENES.en;
+        var scene = scenes[chatSceneIdx % scenes.length];
+        chatSceneIdx++;
+
+        chatBody.innerHTML = '';
+
+        // User message
+        var userDiv = document.createElement('div');
+        userDiv.className = 'chat-msg chat-user';
+        userDiv.innerHTML = '<span class="chat-avatar">You</span><span class="chat-text">' + escapeHtml(scene.user) + '</span>';
+        chatBody.appendChild(userDiv);
+
+        // Thinking indicator
+        chatDelay(function() {
+          var thinkDiv = document.createElement('div');
+          thinkDiv.className = 'chat-msg chat-bot';
+          thinkDiv.innerHTML = '<span class="chat-avatar">\u{1F916}</span><span class="chat-text chat-thinking"><span class="dot-anim">\u25CF\u25CF\u25CF</span></span>';
+          chatBody.appendChild(thinkDiv);
           chatBody.scrollTop = chatBody.scrollHeight;
-        }, 800);
-      }, 600);
-    }
 
-    // Start chat simulation after page load
-    setTimeout(runScene, 1500);
+          // Replace with typed reply
+          chatDelay(function() {
+            var replySpan = thinkDiv.querySelector('.chat-text');
+            replySpan!.classList.remove('chat-thinking');
+            typeText(replySpan, scene.reply, 25, function() {
+              chatBody.scrollTop = chatBody.scrollHeight;
+              // Wait then run next scene
+              chatDelay(function() {
+                // Fade out
+                chatBody.style.opacity = '0';
+                chatDelay(function() {
+                  chatBody.style.opacity = '1';
+                  runScene();
+                }, 400);
+              }, 4000);
+            });
+            chatBody.scrollTop = chatBody.scrollHeight;
+          }, 800);
+        }, 600);
+      }
+
+      // Start chat simulation after page load
+      chatDelay(runScene, 1500);
+    });
   </script>
 </Base>
 
@@ -1209,38 +1199,6 @@ import Base from '../layouts/Base.astro';
   footer :global(a) { color: var(--accent); text-decoration: none; }
   footer :global(a:hover) { text-decoration: underline; }
   .footer-sep { color: var(--border-h); }
-
-  /* ─── TOP NAV ──────────────────────────────────────────── */
-  .top-nav {
-    position: relative; z-index: 10;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 24px; gap: 16px;
-  }
-  .nav-brand {
-    display: inline-flex; align-items: center; gap: 8px;
-    text-decoration: none; color: var(--text); font-weight: 600; font-size: 0.92rem;
-  }
-  .nav-logo { border-radius: 6px; }
-  .nav-links { display: flex; gap: 4px; }
-  .nav-link {
-    padding: 5px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 500;
-    color: var(--text-muted); text-decoration: none; transition: color .15s, background .15s;
-  }
-  .nav-link:hover { color: var(--text); background: rgba(255,255,255,.06); }
-  @media (max-width: 480px) { .nav-links { display: none; } }
-
-  .lang-toggle {
-    display: flex; gap: 2px; flex-shrink: 0;
-    background: rgba(10, 20, 34, 0.7); border: 1px solid var(--border);
-    border-radius: 8px; padding: 3px; backdrop-filter: blur(8px);
-  }
-  :global(.lang-btn) {
-    padding: 3px 10px; border-radius: 5px; border: none; background: transparent;
-    color: var(--text-muted); font-size: 0.73rem; font-weight: 500;
-    cursor: pointer; transition: background .15s, color .15s;
-  }
-  :global(.lang-btn.active) { background: var(--border-h); color: var(--text); }
-  :global(.lang-btn:hover:not(.active)) { color: var(--text); }
 
   /* ─── HERO ───────────────────────────────────────────────── */
   .hero-layout {
