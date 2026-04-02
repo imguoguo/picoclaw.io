@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
 import { getCollection, render } from 'astro:content';
 
@@ -24,19 +25,7 @@ function formatDate(date: Date): string {
   canonical={`https://picoclaw.io/blog/${post.id}/`}
   lang={post.data.lang}
 >
-  <nav class="top-nav">
-    <a href="/" class="nav-brand">
-      <img src="/icon.png" alt="" width="28" height="28" class="nav-logo" />
-      <span>PicoClaw</span>
-    </a>
-    <div class="nav-links">
-      <a href="/download/" class="nav-link">Download</a>
-      <a href="/changelog/" class="nav-link">Changelog</a>
-      <a href="/blog/" class="nav-link active">Blog</a>
-      <a href="https://docs.picoclaw.io" target="_blank" rel="noopener noreferrer" class="nav-link">Docs</a>
-      <a href="https://github.com/sipeed/picoclaw" target="_blank" rel="noopener noreferrer" class="nav-link">GitHub</a>
-    </div>
-  </nav>
+  <Nav active="blog" />
 
   <article class="blog-article">
     <header class="article-header">
@@ -65,25 +54,6 @@ function formatDate(date: Date): string {
 </Base>
 
 <style>
-  .top-nav {
-    position: relative; z-index: 10;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 24px; gap: 16px;
-  }
-  .nav-brand {
-    display: inline-flex; align-items: center; gap: 8px;
-    text-decoration: none; color: var(--text); font-weight: 600; font-size: 0.92rem;
-  }
-  .nav-logo { border-radius: 6px; }
-  .nav-links { display: flex; gap: 4px; }
-  .nav-link {
-    padding: 5px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 500;
-    color: var(--text-muted); text-decoration: none; transition: color .15s, background .15s;
-  }
-  .nav-link:hover { color: var(--text); background: rgba(255,255,255,.06); }
-  .nav-link.active { color: var(--accent); background: rgba(88,166,255,.1); }
-  @media (max-width: 480px) { .nav-links { display: none; } }
-
   .blog-article {
     position: relative; z-index: 1;
     max-width: 720px; margin: 0 auto; padding: 0 20px 60px;

@@ -90,9 +90,6 @@ function formatDate(date: Date): string {
           if (t) t.textContent = 'Blog';
           if (d) d.textContent = 'Tutorials, guides, and updates for PicoClaw';
         }
-        document.querySelectorAll<HTMLElement>('.lang-btn').forEach(function(btn) {
-          btn.classList.toggle('active', btn.dataset.lang === l);
-        });
       }
 
       applyLang(lang);

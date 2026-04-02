@@ -97,10 +97,6 @@ const GITHUB_BASE = 'https://github.com/sipeed/picoclaw/releases/tag/';
           if (desc) desc.textContent = 'Release notes and version history for PicoClaw';
           if (allLink) allLink.innerHTML = 'View all releases on GitHub →';
         }
-        // Buttons
-        document.querySelectorAll<HTMLElement>('.lang-btn').forEach(function(btn) {
-          btn.classList.toggle('active', btn.dataset.lang === l);
-        });
       }
 
       applyLang(lang);

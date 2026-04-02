@@ -164,9 +164,6 @@ import '../styles/download-shared.css';
         if (typeof val === 'string' && val.indexOf('<') !== -1) el.innerHTML = val;
         else if (typeof val === 'string') el.textContent = val;
       });
-      document.querySelectorAll('.lang-btn').forEach(function(btn) {
-        btn.classList.toggle('active', btn.dataset.lang === currentLang);
-      });
     }
     function switchLang(lang) {
       currentLang = lang;
