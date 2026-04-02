@@ -1,0 +1,36 @@
+<footer class="site-footer">
+  <nav class="footer-links" aria-label="Footer links">
+    <a href="/">Home</a>
+    <span class="footer-sep" aria-hidden="true">&middot;</span>
+    <a href="/download/" data-i18n="footer-download">Download</a>
+    <span class="footer-sep" aria-hidden="true">&middot;</span>
+    <a href="/changelog/" data-i18n="footer-changelog">Changelog</a>
+    <span class="footer-sep" aria-hidden="true">&middot;</span>
+    <a href="/blog/">Blog</a>
+    <span class="footer-sep" aria-hidden="true">&middot;</span>
+    <a href="https://github.com/sipeed/picoclaw" target="_blank" rel="noopener noreferrer">GitHub</a>
+    <span class="footer-sep" aria-hidden="true">&middot;</span>
+    <a href="https://docs.picoclaw.io" target="_blank" rel="noopener noreferrer" data-i18n="footer-docs">Docs</a>
+    <span class="footer-sep" aria-hidden="true">&middot;</span>
+    <a href="https://github.com/sipeed/picoclaw/releases" target="_blank" rel="noopener noreferrer" data-i18n="footer-releases">All Releases</a>
+    <span class="footer-sep" aria-hidden="true">&middot;</span>
+    <a href="https://github.com/sipeed/picoclaw/issues" target="_blank" rel="noopener noreferrer" data-i18n="footer-issues">Issues</a>
+    <span class="footer-sep" aria-hidden="true">&middot;</span>
+    <a href="https://github.com/sipeed/picoclaw.io" target="_blank" rel="noopener noreferrer" data-i18n="footer-site-repo">Site Source</a>
+  </nav>
+  <div id="footer-credit">PicoClaw is open-source software by <a href="https://github.com/sipeed" target="_blank" rel="noopener noreferrer">Sipeed</a></div>
+</footer>
+
+<style>
+  .site-footer {
+    position: relative; z-index: 1; border-top: 1px solid var(--border);
+    padding: 30px 20px; text-align: center; color: var(--text-muted); font-size: 0.8rem;
+  }
+  .footer-links {
+    display: flex; align-items: center; justify-content: center;
+    gap: 6px; margin-bottom: 8px; flex-wrap: wrap;
+  }
+  .site-footer a { color: var(--accent); text-decoration: none; }
+  .site-footer a:hover { text-decoration: underline; }
+  .footer-sep { color: var(--border-h); }
+</style>
