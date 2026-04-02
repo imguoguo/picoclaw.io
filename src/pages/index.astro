@@ -1154,12 +1154,15 @@ import '../styles/download-shared.css';
     50% { opacity: 0.4; }
   }
   .chat-body {
-    padding: 16px; min-height: 280px;
+    padding: 16px; height: 320px;
     overflow: hidden; display: flex; flex-direction: column; gap: 12px;
     transition: opacity .3s; text-align: left;
   }
   @media (max-width: 1024px) {
-    .chat-body { min-height: 0; }
+    .chat-body { height: 300px; }
+  }
+  @media (max-width: 480px) {
+    .chat-body { height: 260px; }
   }
   :global(.chat-msg) {
     display: flex; gap: 10px; align-items: flex-start;
