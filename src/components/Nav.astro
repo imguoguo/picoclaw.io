@@ -64,45 +64,41 @@ const { active = '' } = Astro.props;
   // Run on every navigation (after-swap is synchronous, most reliable)
   document.addEventListener('astro:after-swap', updateNav);
 
-  // Also on initial page load
+  // Initial page load + View Transitions
   document.addEventListener('astro:page-load', () => {
     updateNav();
 
     // Hamburger — clone to avoid duplicate listeners
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('nav-links');
-    if (!hamburger || !navLinks) return;
-
-    const fresh = hamburger.cloneNode(true) as HTMLElement;
-    hamburger.replaceWith(fresh);
-
-    fresh.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
-      fresh.classList.toggle('open');
-    });
-
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('open');
-        fresh.classList.remove('open');
+    if (hamburger && navLinks) {
+      const freshHamburger = hamburger.cloneNode(true) as HTMLElement;
+      hamburger.replaceWith(freshHamburger);
+      freshHamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('open');
+        freshHamburger.classList.toggle('open');
       });
-    });
-  });
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          freshHamburger.classList.remove('open');
+        });
+      });
+    }
 
-  // Lang toggle — handled centrally by Nav, dispatches event for pages
-  document.addEventListener('astro:page-load', () => {
+    // Lang toggle — dispatches event for pages
     const toggle = document.getElementById('lang-toggle');
-    if (!toggle) return;
-    const fresh = toggle.cloneNode(true) as HTMLElement;
-    toggle.replaceWith(fresh);
-
-    fresh.addEventListener('click', (e) => {
-      const btn = (e.target as HTMLElement).closest('.lang-btn') as HTMLElement | null;
-      if (!btn || !btn.dataset.lang) return;
-      localStorage.setItem('lang', btn.dataset.lang);
-      updateNav();
-      window.dispatchEvent(new CustomEvent('lang-changed', { detail: { lang: btn.dataset.lang } }));
-    });
+    if (toggle) {
+      const freshToggle = toggle.cloneNode(true) as HTMLElement;
+      toggle.replaceWith(freshToggle);
+      freshToggle.addEventListener('click', (e) => {
+        const btn = (e.target as HTMLElement).closest('.lang-btn') as HTMLElement | null;
+        if (!btn || !btn.dataset.lang) return;
+        localStorage.setItem('lang', btn.dataset.lang);
+        updateNav();
+        window.dispatchEvent(new CustomEvent('lang-changed', { detail: { lang: btn.dataset.lang } }));
+      });
+    }
   });
 </script>
 
