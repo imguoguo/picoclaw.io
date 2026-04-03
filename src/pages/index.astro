@@ -7,9 +7,9 @@ import { Image } from 'astro:assets';
 import logoImg from '../assets/index/logo.webp';
 import hardwareBanner from '../assets/index/hardware-banner.jpg';
 import compareImg from '../assets/index/compare.jpg';
-import gifCode from '../assets/index/picoclaw_code.gif';
-import gifMemory from '../assets/index/picoclaw_memory.gif';
-import gifSearch from '../assets/index/picoclaw_search.gif';
+import vidCode from '../assets/index/picoclaw_code.mp4';
+import vidMemory from '../assets/index/picoclaw_memory.mp4';
+import vidSearch from '../assets/index/picoclaw_search.mp4';
 import wechatQr from '../assets/index/wechat-qr.jpg';
 ---
 <Base>
@@ -166,17 +166,17 @@ import wechatQr from '../assets/index/wechat-qr.jpg';
       <p class="section-desc reveal d3" data-i18n="demo-desc">From coding to research, PicoClaw handles it all — on any hardware.</p>
       <div class="demo-grid">
         <div class="demo-card reveal d3">
-          <img src={gifCode.src} alt="PicoClaw code assistant demo" width="320" height="240" loading="lazy" />
+          <video src={vidCode} autoplay loop muted playsinline width="320" height="240" preload="metadata">PicoClaw code assistant demo</video>
           <h3 data-i18n="demo-code">Full-Stack Engineer Mode</h3>
           <p data-i18n="demo-code-sub">Develop &middot; Deploy &middot; Scale</p>
         </div>
         <div class="demo-card reveal d3">
-          <img src={gifMemory.src} alt="PicoClaw scheduling and memory demo" width="320" height="240" loading="lazy" />
+          <video src={vidMemory} autoplay loop muted playsinline width="320" height="240" preload="metadata">PicoClaw scheduling and memory demo</video>
           <h3 data-i18n="demo-memory">Logging &amp; Planning</h3>
           <p data-i18n="demo-memory-sub">Schedule &middot; Automate &middot; Remember</p>
         </div>
         <div class="demo-card reveal d3">
-          <img src={gifSearch.src} alt="PicoClaw web search demo" width="320" height="240" loading="lazy" />
+          <video src={vidSearch} autoplay loop muted playsinline width="320" height="240" preload="metadata">PicoClaw web search demo</video>
           <h3 data-i18n="demo-search">Web Search &amp; Learning</h3>
           <p data-i18n="demo-search-sub">Discover &middot; Insights &middot; Trends</p>
         </div>
@@ -1319,7 +1319,7 @@ import wechatQr from '../assets/index/wechat-qr.jpg';
     border-color: var(--accent); transform: translateY(-6px);
     box-shadow: 0 16px 40px rgba(0,0,0,.3), 0 0 0 1px var(--accent);
   }
-  .demo-card img {
+  .demo-card img, .demo-card video {
     width: 100%; height: auto; display: block;
     border-bottom: 1px solid var(--border);
   }
