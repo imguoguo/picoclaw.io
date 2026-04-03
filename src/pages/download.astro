@@ -99,83 +99,24 @@ import '../styles/download-shared.css';
   <Footer />
 
   <script>
+    import { detectLang, applyI18n, createT } from '../lib/i18n';
+    import { TRANSLATIONS } from '../data/i18n/download';
+
     document.addEventListener('astro:page-load', () => {
     if (!window.location.pathname.startsWith('/download')) return;
 
-    // ── i18n (download page) ─────────────────────────────────────
-    var TRANSLATIONS = {
-      en: {
-        'dl-title':             'Download PicoClaw',
-        'dl-desc':              'Choose your platform and architecture. Single binary, no dependencies — just download and run.',
-        'section-label':        'Choose your platform',
-        'loading':              'Loading…',
-        'modal-sub':            'Select architecture to download',
-        'modal-foot-note':      'Always downloads the latest release',
-        'checksums':            'SHA256 Checksums',
-        'source-label':         'Download source:',
-        'footer-docs':          'Docs',
-        'footer-changelog':     'Changelog',
-        'arch-count':           function(n) { return n + ' architecture' + (n > 1 ? 's' : ''); },
-        'hero-dl-for':          function(os, arch) { return 'Download for ' + os + ' (' + arch + ')'; },
-        'hero-dl-other':        'Other platforms',
-        'install-title':        'Quick Install',
-        'install-cli-title':    'CLI Setup',
-        'install-cli-desc':     'After downloading, run the onboard command to initialize your workspace:',
-        'install-docs-title':   'Full Guide',
-        'install-docs-desc':    'For detailed installation instructions, Docker setup, and Android/Termux support:',
-        'install-docs-link':    'Read Installation Guide →',
-      },
-      zh: {
-        'dl-title':             '下载 PicoClaw',
-        'dl-desc':              '选择你的平台和架构。单一二进制，无依赖——下载即用。',
-        'section-label':        '选择平台',
-        'loading':              '加载中…',
-        'modal-sub':            '选择架构以下载',
-        'modal-foot-note':      '始终下载最新版本',
-        'checksums':            'SHA256 校验和',
-        'source-label':         '下载源：',
-        'footer-docs':          '文档',
-        'footer-changelog':     '更新日志',
-        'arch-count':           function(n) { return n + ' 个架构'; },
-        'hero-dl-for':          function(os, arch) { return '下载 ' + os + ' (' + arch + ') 版'; },
-        'hero-dl-other':        '其他平台',
-        'install-title':        '快速安装',
-        'install-cli-title':    'CLI 初始化',
-        'install-cli-desc':     '下载后，运行 onboard 命令初始化工作区：',
-        'install-docs-title':   '完整指南',
-        'install-docs-desc':    '详细的安装说明、Docker 部署和 Android/Termux 支持：',
-        'install-docs-link':    '阅读安装指南 →',
-      },
-    };
-
-    function detectLang() {
-      var saved = localStorage.getItem('lang');
-      if (saved && TRANSLATIONS[saved]) return saved;
-      return navigator.language.startsWith('zh') ? 'zh' : 'en';
-    }
     var currentLang = detectLang();
-    function t(key) {
-      return (TRANSLATIONS[currentLang] || TRANSLATIONS.en)[key] || TRANSLATIONS.en[key] || key;
-    }
-    function applyStaticLang() {
-      document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
-      document.querySelectorAll('[data-i18n]').forEach(function(el) {
-        var val = t(el.dataset.i18n);
-        if (typeof val === 'string' && val.indexOf('<') !== -1) el.innerHTML = val;
-        else if (typeof val === 'string') el.textContent = val;
-      });
-      document.querySelectorAll('.lang-btn').forEach(function(btn) {
-        btn.classList.toggle('active', btn.dataset.lang === currentLang);
-      });
-    }
-    function switchLang(lang) {
+    var t = createT(TRANSLATIONS, currentLang);
+
+    function switchLang(lang: string) {
       currentLang = lang;
       currentSource = lang === 'zh' ? 'cdn' : 'github';
-      localStorage.setItem('lang', lang);
-      applyStaticLang();
+      t = createT(TRANSLATIONS, currentLang);
+      applyI18n(TRANSLATIONS, currentLang);
       if (platformData) buildCards(platformData);
     }
-    window.addEventListener('lang-changed', function(e) {
+    applyI18n(TRANSLATIONS, currentLang);
+    window.addEventListener('lang-changed', function(e: any) {
       switchLang(e.detail.lang);
     });
 
@@ -364,8 +305,8 @@ import '../styles/download-shared.css';
       document.getElementById('hero-dl-sub').innerHTML = m.arch.file + ' · <a href="#os-grid">' + t('hero-dl-other') + '</a>';
     }
     var _origSwitch = switchLang;
-    switchLang = function(lang) { _origSwitch(lang); updateHero(); };
-    document.getElementById('source-btns').addEventListener('click', function() { setTimeout(updateHero, 0); });
+    switchLang = function(lang: string) { _origSwitch(lang); updateHero(); };
+    document.getElementById('source-btns')!.addEventListener('click', function() { setTimeout(updateHero, 0); });
 
     applyStaticLang();
     document.getElementById('checksums-link').href = RELEASES_URL;

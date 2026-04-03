@@ -28,6 +28,8 @@ const { active = '' } = Astro.props;
 </nav>
 
 <script>
+  import { detectLang } from '../lib/i18n';
+
   const NAV_I18N: Record<string, Record<string, string>> = {
     download:  { en: 'Download',  zh: '下载' },
     changelog: { en: 'Changelog', zh: '更新日志' },
@@ -35,15 +37,9 @@ const { active = '' } = Astro.props;
     docs:      { en: 'Docs',      zh: '文档' },
   };
 
-  function getLang(): string {
-    const saved = localStorage.getItem('lang');
-    if (saved === 'en' || saved === 'zh') return saved;
-    return navigator.language.startsWith('zh') ? 'zh' : 'en';
-  }
-
   function updateNav() {
     const path = window.location.pathname;
-    const lang = getLang();
+    const lang = detectLang();
 
     // Update active state
     document.querySelectorAll('#nav-links .nav-link').forEach(link => {

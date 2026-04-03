@@ -1,0 +1,41 @@
+// Shared translations: footer, download modal, and cross-page keys
+import type { Translations } from '../../lib/i18n';
+
+export const shared: Translations = {
+  en: {
+    'footer-docs':       'Docs',
+    'footer-releases':   'All Releases',
+    'footer-issues':     'Issues',
+    'footer-download':   'Download',
+    'footer-changelog':  'Changelog',
+    'footer-site-repo':  'Site Source',
+    'footer-credit':     'PicoClaw is open-source software by <a href="https://github.com/sipeed" target="_blank" rel="noopener noreferrer">Sipeed</a>',
+    'section-label':     'Choose your platform',
+    'loading':           'Loading\u2026',
+    'modal-sub':         'Select architecture to download',
+    'modal-foot-note':   'Always downloads the latest release',
+    'checksums':         'SHA256 Checksums',
+    'source-label':      'Download source:',
+    'arch-count':        function(n: number) { return n + ' architecture' + (n > 1 ? 's' : ''); },
+    'hero-dl-for':       function(os: string, arch: string) { return 'Download for ' + os + ' (' + arch + ')'; },
+    'hero-dl-other':     'Other platforms',
+  },
+  zh: {
+    'footer-docs':       '文档',
+    'footer-releases':   '所有版本',
+    'footer-issues':     '问题反馈',
+    'footer-download':   '下载',
+    'footer-changelog':  '更新日志',
+    'footer-site-repo':  '网站源码',
+    'footer-credit':     'PicoClaw 是由 <a href="https://github.com/sipeed" target="_blank" rel="noopener noreferrer">Sipeed</a> 开发的开源软件',
+    'section-label':     '选择平台',
+    'loading':           '加载中…',
+    'modal-sub':         '选择架构以下载',
+    'modal-foot-note':   '始终下载最新版本',
+    'checksums':         'SHA256 校验和',
+    'source-label':      '下载源：',
+    'arch-count':        function(n: number) { return n + ' 个架构'; },
+    'hero-dl-for':       function(os: string, arch: string) { return '下载 ' + os + ' (' + arch + ') 版'; },
+    'hero-dl-other':     '其他平台',
+  },
+};
