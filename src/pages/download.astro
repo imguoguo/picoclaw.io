@@ -268,8 +268,7 @@ import '../styles/download-shared.css';
     switchLang = function(lang: string) { _origSwitch(lang); updateHero(); };
     document.getElementById('source-btns')!.addEventListener('click', function() { setTimeout(updateHero, 0); });
 
-    applyStaticLang();
-    document.getElementById('checksums-link').href = RELEASES_URL;
+    document.getElementById('checksums-link')!.href = RELEASES_URL;
     buildCards(PLATFORMS);
     setupHero();
     }); // end astro:page-load
