@@ -1,5 +1,30 @@
 export const releases = [
   {
+    version: 'v0.2.5',
+    date: '2026-04-03',
+    highlights: [
+      '<strong>New LLM Providers</strong>: Mimo AI, Venice AI, LM Studio, and Z.AI added',
+      '<strong>VK Channel</strong>: VK social network support',
+      '<strong>Skill Marketplace</strong>: Web UI hub for browsing and installing skills from registry',
+      '<strong>Launcher Dashboard</strong>: Token-protected dashboard with SPA login page',
+      '<strong>New Tools</strong>: <code>load_image</code> (local vision), <code>read_file</code> by lines, exec background/PTY, reaction tool',
+      '<strong>LLM Rate Limiting</strong>: Per-model rate limiting and ContextManager abstraction',
+    ],
+    details: [
+      'Image message support in Pico chat Web UI',
+      'Multi-message sending via <code>---</code> split marker',
+      'BM25 index precomputation for faster memory/knowledge searches',
+      'First-time onboarding tour guide for new users',
+      '<code>PICOCLAW_LOG_FILE</code> env var for file-only logging',
+      'Telegram: quoted reply context and media included in inbound turns',
+      'Fix: Telegram HTML links broken by italic regex inside href URLs',
+      'Fix: WeChat/WeCom new protocol support',
+      'Fix: token over-estimation causing premature context pruning',
+      'Fix: Retry-After header honored for 429 rate limit responses',
+      'Fix: GitHub Copilot session creation failure',
+    ],
+  },
+  {
     version: 'v0.2.4',
     date: '2026-03-25',
     highlights: [

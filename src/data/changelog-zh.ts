@@ -1,5 +1,30 @@
 export const releases = [
   {
+    version: 'v0.2.5',
+    date: '2026-04-03',
+    highlights: [
+      '<strong>新增 LLM Provider</strong>：接入 Mimo AI、Venice AI、LM Studio、Z.AI',
+      '<strong>VK 通道</strong>：支持 VK 社交网络',
+      '<strong>技能市场</strong>：Web UI 技能中心，支持浏览和一键安装注册表中的技能',
+      '<strong>Launcher 控制面板</strong>：Token 鉴权保护 + SPA 登录页',
+      '<strong>新工具</strong>：<code>load_image</code>（本地视觉）、<code>read_file</code> 按行读取、exec 后台执行/PTY、反应工具',
+      '<strong>LLM 速率限制</strong>：支持单模型限速，新增 ContextManager 可插拔上下文管理',
+    ],
+    details: [
+      'Pico Chat Web UI 支持图片消息',
+      '通过 <code>---</code> 分隔符实现单次多消息发送',
+      '预计算 BM25 索引，加速记忆/知识库搜索',
+      '新用户首次使用引导教程',
+      '<code>PICOCLAW_LOG_FILE</code> 环境变量，支持仅写文件日志',
+      'Telegram：引用回复的上下文和媒体内容纳入对话轮次',
+      '修复：Telegram 斜体正则误匹配 href 导致 HTML 链接损坏',
+      '修复：微信/企业微信新协议支持',
+      '修复：Token 数量高估导致上下文被过早压缩',
+      '修复：正确处理 429 响应的 Retry-After 头',
+      '修复：GitHub Copilot 会话无法创建',
+    ],
+  },
+  {
     version: 'v0.2.4',
     date: '2026-03-25',
     highlights: [
