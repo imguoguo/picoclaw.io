@@ -412,6 +412,8 @@ import wechatQr from '../assets/index/wechat-qr.jpg';
   <script>
     import { detectLang, applyI18n, createT } from '../lib/i18n';
     import { TRANSLATIONS } from '../data/i18n/index';
+    import { CHAT_SCENES } from '../data/chat-scenes';
+    import { escapeHtml, typeText } from '../lib/chat';
 
     // ── Page-load handler (runs on every navigation with View Transitions) ──
     document.addEventListener('astro:page-load', () => {
