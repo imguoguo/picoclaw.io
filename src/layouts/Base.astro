@@ -139,6 +139,7 @@ const {
   <ClientRouter />
 </head>
 <body>
+  <div id="loading-bar" class="loading-bar" aria-hidden="true"></div>
   <slot />
 </body>
 </html>
@@ -205,4 +206,66 @@ const {
   @media (prefers-reduced-motion: reduce) {
     .reveal { animation: none; opacity: 1; transform: none; }
   }
+
+  /* ─── Page loading bar ─── */
+  .loading-bar {
+    position: fixed;
+    top: 0; left: 0;
+    width: 0;
+    height: 2.5px;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .2s;
+  }
+  .loading-bar.active {
+    opacity: 1;
+    animation: loadingProgress 8s cubic-bezier(.1, .4, .2, .9) forwards;
+  }
+  .loading-bar.done {
+    width: 100% !important;
+    animation: none;
+    transition: width .15s ease-out, opacity .3s .1s;
+    opacity: 0;
+  }
+  @keyframes loadingProgress {
+    0%   { width: 0; }
+    15%  { width: 30%; }
+    50%  { width: 60%; }
+    80%  { width: 80%; }
+    100% { width: 92%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .loading-bar { display: none; }
+  }
 </style>
+
+<script>
+  // Thin progress bar during View Transitions navigation
+  document.addEventListener('astro:before-preparation', () => {
+    const bar = document.getElementById('loading-bar');
+    if (!bar) return;
+    bar.classList.remove('done');
+    bar.classList.add('active');
+  });
+
+  document.addEventListener('astro:after-swap', () => {
+    // bar element was swapped — re-query from new DOM
+    const bar = document.getElementById('loading-bar');
+    if (!bar) return;
+    bar.classList.remove('active');
+    bar.classList.add('done');
+  });
+
+  document.addEventListener('astro:page-load', () => {
+    const bar = document.getElementById('loading-bar');
+    if (!bar) return;
+    // Clean up classes after transition is fully done
+    setTimeout(() => {
+      bar.classList.remove('active', 'done');
+      bar.style.width = '';
+    }, 400);
+  });
+</script>
