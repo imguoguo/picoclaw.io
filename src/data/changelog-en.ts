@@ -1,5 +1,29 @@
 export const releases = [
   {
+    version: 'v0.2.6',
+    date: '2026-04-08',
+    highlights: [
+      '<strong>Sandbox Isolation</strong>: Agent execution isolation for safer tool runs',
+      '<strong>Seahorse Short-Term Memory</strong>: New LCM (short-term memory) engine for the seahorse memory subsystem',
+      '<strong>Enhanced Hooks System</strong>: New <code>respond</code> action and comprehensive hook documentation',
+      '<strong>Microsoft Teams Channel</strong>: New <code>teams_webhook</code> output-only channel',
+      '<strong>HTTP Provider Headers</strong>: Custom header injection for HTTP-based LLM providers',
+      '<strong>MCP Artifact Storage</strong>: Oversized text results from MCP tools are now stored as artifacts',
+    ],
+    details: [
+      'New LOCOMO memory benchmark tool for evaluating memory engines',
+      'Per-candidate provider support for <code>model_fallbacks</code>',
+      'Feishu: enriched reply context now includes card and file replies',
+      'Hardened gateway PID liveness, ownership validation, and WebSocket proxy state',
+      'Web UI now derives the WebSocket URL from the browser location instead of the backend',
+      'Fix: WebUI could not connect to the gateway started by WebUI itself',
+      'Fix: Docker launcher missing <code>-console</code> flag and open network access',
+      'Fix: <code>write_file</code> nested-JSON escape semantics clarified with new tests',
+      'Fix: duplicate <code>v</code> in CLI help banner version line',
+      'Disabled seahorse context manager on FreeBSD/ARM and other unsupported platforms',
+    ],
+  },
+  {
     version: 'v0.2.5',
     date: '2026-04-03',
     highlights: [

@@ -1,5 +1,29 @@
 export const releases = [
   {
+    version: 'v0.2.6',
+    date: '2026-04-08',
+    highlights: [
+      '<strong>沙箱隔离</strong>：支持 Agent 执行隔离，工具运行更安全',
+      '<strong>Seahorse 短时记忆</strong>：seahorse 记忆子系统新增 LCM 短时记忆引擎',
+      '<strong>Hook 系统增强</strong>：新增 <code>respond</code> 动作和完善的 Hook 文档',
+      '<strong>Microsoft Teams 通道</strong>：新增 <code>teams_webhook</code> 仅输出通道',
+      '<strong>HTTP Provider 自定义请求头</strong>：HTTP 类 LLM Provider 支持自定义请求头注入',
+      '<strong>MCP 工件存储</strong>：MCP 工具的超大文本结果以工件形式存储',
+    ],
+    details: [
+      '新增 LOCOMO 记忆基准测试工具，用于评估记忆引擎',
+      '<code>model_fallbacks</code> 支持按候选 Provider 独立配置',
+      '飞书：引用回复上下文现已包含卡片和文件回复',
+      '加固网关 PID 存活检测、所有权校验和 WebSocket 代理状态',
+      'Web UI 改为从浏览器地址解析 WebSocket URL，不再依赖后端返回',
+      '修复：WebUI 无法连接到由 WebUI 自己启动的网关',
+      '修复：Docker launcher 缺少 <code>-console</code> 标志和开放网络',
+      '修复：澄清 <code>write_file</code> 的嵌套 JSON 转义语义，并新增测试',
+      '修复：CLI help 横幅版本号中重复出现 <code>v</code>',
+      'FreeBSD/ARM 及其他不支持平台下禁用 seahorse 上下文管理器',
+    ],
+  },
+  {
     version: 'v0.2.5',
     date: '2026-04-03',
     highlights: [
